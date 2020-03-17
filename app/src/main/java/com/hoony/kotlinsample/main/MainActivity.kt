@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             R.layout.activity_main
         )
 
+        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+            .create(MainViewModel::class.java)
     }
-
-
 }
