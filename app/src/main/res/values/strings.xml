@@ -92,4 +92,11 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title">제목</string>
+    <string name="summary">내용</string>
+    <string name="edit_date">작성시간</string>
 </resources>

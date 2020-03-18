@@ -4,10 +4,10 @@ import android.content.Context
 import android.widget.Toast
 
 public class ToastPrinter {
-    private lateinit var toast: Toast
+    private lateinit var mToast: Toast
     public fun show(context: Context, msg: String) {
-        toast.cancel()
-        toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT)
-        toast.show()
+        mToast.cancel()
+        mToast = Toast.makeText(context, msg, Toast.LENGTH_SHORT)
+        mToast.show()
     }
 }

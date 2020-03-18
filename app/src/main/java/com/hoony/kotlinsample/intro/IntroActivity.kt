@@ -1,17 +1,17 @@
-package com.hoony.kotlinsample.Intro
+package com.hoony.kotlinsample.intro
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.hoony.kotlinsample.List.ListActivity
 import com.hoony.kotlinsample.R
+import com.hoony.kotlinsample.list.ListActivity
 
 class IntroActivity : AppCompatActivity() {
 
-    var handler: Handler? = null
-    var runnable: Runnable? = null
+    private var handler: Handler? = null
+    private lateinit var runnable: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +35,7 @@ class IntroActivity : AppCompatActivity() {
         handler = Handler()
         handler?.run {
             postDelayed(runnable, 2000)
+            finish()
         }
     }
 
