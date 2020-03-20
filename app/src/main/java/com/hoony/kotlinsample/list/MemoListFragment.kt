@@ -1,6 +1,7 @@
 package com.hoony.kotlinsample.list
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hoony.kotlinsample.R
+import com.hoony.kotlinsample.detail.DetailActivity
 import kotlinx.android.synthetic.main.fragment_memo_list.*
 
 /**
@@ -37,6 +39,11 @@ class MemoListFragment : Fragment() {
                 memoListView.layoutManager =
                     LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
                 memoListView.adapter = listAdapter
+                listAdapter.itemClickListener = {
+                    val intent = Intent(activity, DetailActivity::class.java)
+                    intent.putExtra("MEMO_ID", it)
+                    startActivity(intent)
+                }
             }
             it.memoLiveData.observe(this,
                 Observer {
@@ -44,6 +51,11 @@ class MemoListFragment : Fragment() {
                 }
             )
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        listAdapter.notifyDataSetChanged()
     }
 
     override fun onCreateView(

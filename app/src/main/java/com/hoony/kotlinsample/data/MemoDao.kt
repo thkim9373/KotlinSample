@@ -3,6 +3,7 @@ package com.hoony.kotlinsample.data
 import io.realm.Realm
 import io.realm.RealmResults
 import io.realm.Sort
+import java.util.*
 
 class MemoDao(private val realm: Realm) {
 
@@ -16,5 +17,23 @@ class MemoDao(private val realm: Realm) {
         return realm.where(MemoData::class.java)
             .equalTo("id", id)
             .findFirst() as MemoData
+    }
+
+    fun addOrUpdateMemo(memoData: MemoData, title: String, content: String) {
+        realm.executeTransaction {
+            memoData.title = title
+            memoData.content = content
+            memoData.createAt = Date()
+
+            if (content.length > 100) {
+                memoData.summary = content.substring(0..100)
+            } else {
+                memoData.summary = content
+            }
+
+            if (!memoData.isManaged) {
+                it.copyFromRealm(memoData)
+            }
+        }
     }
 }

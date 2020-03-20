@@ -1,12 +1,12 @@
 package com.hoony.kotlinsample.list
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.hoony.kotlinsample.R
-import com.hoony.kotlinsample.data.MemoData
+import com.hoony.kotlinsample.detail.DetailActivity
 import kotlinx.android.synthetic.main.activity_list.*
-import java.util.*
 
 class ListActivity : AppCompatActivity() {
 
@@ -28,16 +28,8 @@ class ListActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener { view ->
-//            val intent = Intent(applicationContext, DetailActivity::class.java)
-//            startActivity(intent)
-            viewModel!!.let {
-                val memoData = MemoData()
-                memoData.title = "제목 테스트"
-                memoData.summary = "요약내용 테스트"
-                memoData.createAt = Date()
-
-                it.addMemo(memoData)
-            }
+            val intent = Intent(applicationContext, DetailActivity::class.java)
+            startActivity(intent)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

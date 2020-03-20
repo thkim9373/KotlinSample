@@ -1,20 +1,26 @@
 package com.hoony.kotlinsample.list
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.hoony.kotlinsample.data.MemoDao
 import com.hoony.kotlinsample.data.MemoData
+import com.hoony.kotlinsample.data.RealmLiveData
+import io.realm.Realm
 
 class ListVIewModel : ViewModel() {
-    private val memos: MutableList<MemoData> = mutableListOf()
-    val memoLiveData: MutableLiveData<MutableList<MemoData>> by lazy {
-        MutableLiveData<MutableList<MemoData>>().apply {
-            value = memos
-        }
+    private val realm: Realm by lazy {
+        Realm.getDefaultInstance()
     }
 
-    fun addMemo(data: MemoData) {
-        val tempList = memoLiveData.value
-        tempList?.add(data)
-        memoLiveData.value = tempList
+    private val memoDao: MemoDao by lazy {
+        MemoDao(realm)
+    }
+
+    val memoLiveData: RealmLiveData<MemoData> by lazy {
+        RealmLiveData(memoDao.getAllMemos())
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        realm.close()
     }
 }

@@ -15,8 +15,16 @@ class MemoListAdapter(private var list: MutableList<MemoData>) :
 
     private val dateFormat = SimpleDateFormat("MM/dd HH:mm", Locale.getDefault())
 
+    lateinit var itemClickListener: (itemId: String) -> Unit
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_memo, parent, false)
+        view.setOnClickListener {
+            itemClickListener.run {
+                val memoId = it.tag as String
+                this(memoId)
+            }
+        }
         return ItemViewHolder(view)
     }
 
@@ -33,5 +41,6 @@ class MemoListAdapter(private var list: MutableList<MemoData>) :
         }
         holder.containerView.summaryView.text = list[position].summary
         holder.containerView.dateView.text = dateFormat.format(list[position].createAt)
+        holder.containerView.tag = list[position].id
     }
 }
