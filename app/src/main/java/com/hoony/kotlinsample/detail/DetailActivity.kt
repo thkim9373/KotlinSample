@@ -1,6 +1,5 @@
 package com.hoony.kotlinsample.detail
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.EditText
@@ -37,7 +36,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         val memoId = intent.getStringExtra("MEMO_ID")
-        if(memoId != null) viewModel!!.loadMemo(memoId)
+        if (memoId != null) viewModel!!.loadMemo(memoId)
 
         toolbar_layout.setOnClickListener {
             val view = LayoutInflater.from(this).inflate(R.layout.dialog_title, null)
@@ -47,12 +46,24 @@ class DetailActivity : AppCompatActivity() {
                 .setTitle("제목을 입력하세요")
                 .setView(view)
                 .setNegativeButton("취소", null)
-
+                .setPositiveButton("확인") { _, _ ->
+                    supportActionBar?.title = titleEdit.text.toString()
+                }
+                .show()
         }
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        viewModel?.addOrUpdateMemo(
+            supportActionBar?.title.toString(),
+            contentEdit.text.toString()
+        )
     }
 }
