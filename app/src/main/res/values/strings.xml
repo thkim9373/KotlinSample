@@ -102,4 +102,9 @@
     <string name="edit_date">작성시간</string>
 
     <string name="memo_hint">메모를 작성해주세요</string>
+
+    <string name="notice">안내</string>
+    <string name="alarm_notice">기존에 알람이 설정되어 있습니다. 삭제 또는 재설정할 수 있습니다.</string>
+    <string name="update">재설정</string>
+    <string name="delete">삭제</string>
 </resources>

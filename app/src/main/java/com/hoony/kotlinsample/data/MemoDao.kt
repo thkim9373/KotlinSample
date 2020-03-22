@@ -33,7 +33,7 @@ class MemoDao(private val realm: Realm) {
             }
 
             if (!memoData.isManaged) {
-                it.copyFromRealm(memoData)
+                it.copyToRealm(memoData)
             }
         }
     }

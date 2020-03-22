@@ -31,6 +31,8 @@
                 android:value="androidx.appcompat.app.AppCompatActivity" />
         </activity>
         <activity android:name=".main.MainActivity" />
+
+        <receiver android:name=".broadcast_receiver.AlarmTool" />
     </application>
 
 </manifest>
