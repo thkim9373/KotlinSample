@@ -42,9 +42,17 @@
                         android:id="@+id/alarmInfoView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_margin="24dp"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.hoony.kotlinsample.view.LocationInfoView
+                        android:id="@+id/locationInfoView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/alarmInfoView" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -13,7 +13,7 @@ open class MemoData(
     var summary: String = "",
     var imageFile: String = "",
     var latitude: Double = 0.0,
-    var longtude: Double = 0.0,
+    var longitude: Double = 0.0,
     var alarmTime: Date = Date(),
     var weather: String = ""
 ) : RealmObject()

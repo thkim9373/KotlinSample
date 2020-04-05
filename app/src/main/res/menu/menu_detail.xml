@@ -11,6 +11,10 @@
     <item
         android:id="@+id/menu_alarm"
         android:icon="@drawable/ic_alarm"
-        android:title="@string/action_alarm_setting"
+        android:title="@string/action_alarm"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_location"
+        android:title="@string/action_location"
         app:showAsAction="never" />
 </menu>
