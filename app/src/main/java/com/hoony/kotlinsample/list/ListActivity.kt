@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_list.*
 
 class ListActivity : AppCompatActivity() {
 
-    private var viewModel: ListVIewModel? = null
+    private var viewModel: ListViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class ListActivity : AppCompatActivity() {
 
         viewModel = application!!.let {
             ViewModelProvider(viewModelStore, ViewModelProvider.AndroidViewModelFactory(it)).get(
-                ListVIewModel::class.java
+                ListViewModel::class.java
             )
         }
 

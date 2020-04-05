@@ -6,7 +6,7 @@ import com.hoony.kotlinsample.data.MemoData
 import com.hoony.kotlinsample.data.RealmLiveData
 import io.realm.Realm
 
-class ListVIewModel : ViewModel() {
+class ListViewModel : ViewModel() {
     private val realm: Realm by lazy {
         Realm.getDefaultInstance()
     }

@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_memo_list.*
 class MemoListFragment : Fragment() {
 
     private lateinit var listAdapter: MemoListAdapter
-    private var viewModel: ListVIewModel? = null
+    private var viewModel: ListViewModel? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -30,7 +30,7 @@ class MemoListFragment : Fragment() {
             ViewModelProvider(
                 activity!!.viewModelStore,
                 ViewModelProvider.AndroidViewModelFactory(it)
-            ).get(ListVIewModel::class.java)
+            ).get(ListViewModel::class.java)
         }
 
         viewModel!!.let { it ->

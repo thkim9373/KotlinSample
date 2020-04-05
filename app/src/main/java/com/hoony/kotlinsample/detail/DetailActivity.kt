@@ -198,7 +198,7 @@ class DetailActivity : AppCompatActivity() {
                                 null
                             )
                         }
-                    }
+                    }.show()
             }
         }
         return super.onOptionsItemSelected(item)
