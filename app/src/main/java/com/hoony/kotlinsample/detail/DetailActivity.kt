@@ -1,8 +1,10 @@
 package com.hoony.kotlinsample.detail
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.location.Criteria
 import android.location.Location
 import android.location.LocationListener
@@ -63,13 +65,13 @@ class DetailActivity : AppCompatActivity() {
                 it.id + ".jpg"
             )
 
-
+            bgImage.setImageURI(imageFile.toUri())
         })
 
         val memoId = intent.getStringExtra("MEMO_ID")
         if (memoId != null) viewModel!!.loadMemo(memoId)
 
-        toolbar_layout.setOnClickListener {
+        toolbarLayout.setOnClickListener {
             val view = LayoutInflater.from(this).inflate(R.layout.dialog_title, null)
             val titleEdit = view.findViewById<EditText>(R.id.titleEdit)
 
@@ -173,7 +175,7 @@ class DetailActivity : AppCompatActivity() {
 
                         if (!isGPSEnabled && !isNetworkEnabled) {
                             Snackbar.make(
-                                toolbar_layout,
+                                toolbarLayout,
                                 "폰의 위치 기능을 켜야 가능을 사용할 수 있습니다.",
                                 Snackbar.LENGTH_LONG
                             ).setAction("설정", View.OnClickListener {
@@ -231,7 +233,7 @@ class DetailActivity : AppCompatActivity() {
 
                         if (!isGPSEnabled && !isNetworkEnabled) {
                             Snackbar.make(
-                                toolbar_layout,
+                                toolbarLayout,
                                 "폰의 위치 기능을 켜야 가능을 사용할 수 있습니다.",
                                 Snackbar.LENGTH_LONG
                             ).setAction("설정", View.OnClickListener {
@@ -307,5 +309,27 @@ class DetailActivity : AppCompatActivity() {
         super.onBackPressed()
 
         viewModel?.addOrUpdateMemo(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_IMAGE && resultCode == Activity.RESULT_OK) {
+            try {
+                val inputStream = data?.data?.let {
+                    contentResolver.openInputStream(it)
+                }
+                inputStream?.let {
+                    val image = BitmapFactory.decodeStream(it)
+                    bgImage.setImageURI(null)
+                    image?.let {
+                        viewModel?.setImageFile(this, it)
+                    }
+                    it.close()
+                }
+            } catch (e: Exception) {
+                println(e)
+            }
+        }
     }
 }

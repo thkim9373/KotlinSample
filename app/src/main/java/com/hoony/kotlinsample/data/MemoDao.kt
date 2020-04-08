@@ -29,9 +29,7 @@ class MemoDao(private val realm: Realm) {
                 memoData.summary = memoData.content
             }
 
-            if (!memoData.isManaged) {
-                it.copyToRealm(memoData)
-            }
+            it.copyToRealmOrUpdate(memoData)
         }
     }
 

@@ -27,11 +27,11 @@ class ListActivity : AppCompatActivity() {
             )
         }
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             val intent = Intent(applicationContext, DetailActivity::class.java)
             startActivity(intent)
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 }
