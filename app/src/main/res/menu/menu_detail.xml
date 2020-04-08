@@ -17,4 +17,8 @@
         android:id="@+id/menu_location"
         android:title="@string/action_location"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_weather"
+        android:title="@string/action_weather"
+        app:showAsAction="never" />
 </menu>

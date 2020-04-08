@@ -18,6 +18,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
@@ -29,12 +30,15 @@ import com.takisoft.datetimepicker.DatePickerDialog
 import com.takisoft.datetimepicker.TimePickerDialog
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
+import java.io.File
 import java.util.*
 
 class DetailActivity : AppCompatActivity() {
 
     private var viewModel: DetailViewModel? = null
     private val dialogCalendar = Calendar.getInstance()
+
+    private val REQUEST_IMAGE = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +56,14 @@ class DetailActivity : AppCompatActivity() {
             contentEdit.setText(it.content)
             alarmInfoView.setAlarmDate(it.alarmTime)
             locationInfoView.setLocation(it.latitude, it.longitude)
+            weatherInfoView.setWeather(it.weather)
+
+            val imageFile = File(
+                getDir("image", Context.MODE_PRIVATE),
+                it.id + ".jpg"
+            )
+
+
         })
 
         val memoId = intent.getStringExtra("MEMO_ID")
@@ -106,8 +118,9 @@ class DetailActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            startActivityForResult(intent, REQUEST_IMAGE)
         }
     }
 
@@ -198,7 +211,69 @@ class DetailActivity : AppCompatActivity() {
                                 null
                             )
                         }
-                    }.show()
+                    }
+                    .setNegativeButton("삭제") { _, _ ->
+                        viewModel!!.deleteLocation()
+                    }
+                    .show()
+            }
+            R.id.menu_weather -> {
+                AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.notice))
+                    .setMessage(getString(R.string.location_notice))
+                    .setPositiveButton("날씨 가져오기") { _, _ ->
+                        val locationManager =
+                            getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                        val isGPSEnabled =
+                            locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                        val isNetworkEnabled =
+                            locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+
+                        if (!isGPSEnabled && !isNetworkEnabled) {
+                            Snackbar.make(
+                                toolbar_layout,
+                                "폰의 위치 기능을 켜야 가능을 사용할 수 있습니다.",
+                                Snackbar.LENGTH_LONG
+                            ).setAction("설정", View.OnClickListener {
+                                val goToSettings = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                                startActivity(goToSettings)
+                            }).show()
+                        } else {
+                            val criteria = Criteria()
+                            criteria.accuracy = Criteria.ACCURACY_MEDIUM
+                            criteria.powerRequirement = Criteria.POWER_MEDIUM
+
+                            locationManager.requestSingleUpdate(
+                                criteria,
+                                object : LocationListener {
+                                    override fun onLocationChanged(location: Location?) {
+                                        location?.run {
+                                            viewModel!!.setWeather(latitude, longitude)
+                                        }
+                                    }
+
+                                    override fun onStatusChanged(
+                                        p0: String?,
+                                        p1: Int,
+                                        p2: Bundle?
+                                    ) {
+                                    }
+
+                                    override fun onProviderEnabled(p0: String?) {
+                                    }
+
+                                    override fun onProviderDisabled(p0: String?) {
+
+                                    }
+                                },
+                                null
+                            )
+                        }
+                    }
+                    .setNegativeButton("삭제") { _, _ ->
+                        viewModel!!.deleteWeather()
+                    }
+                    .show()
             }
         }
         return super.onOptionsItemSelected(item)
