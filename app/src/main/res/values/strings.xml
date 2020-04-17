@@ -2,6 +2,32 @@
     <string name="app_name">KotlinSample</string>
     <string name="title_activity_list">ListActivity</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="action_share">공유</string>
+    <string name="action_alarm">알람 설정</string>
+    <string name="action_location">위치 설정</string>
+    <string name="action_weather">날씨 설정</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title">제목</string>
+    <string name="summary">내용</string>
+    <string name="edit_date">작성시간</string>
+
+    <string name="memo_hint">메모를 작성해주세요</string>
+
+    <string name="notice">안내</string>
+    <string name="alarm_notice">기존에 알람이 설정되어 있습니다. 삭제 또는 재설정할 수 있습니다.</string>
+    <string name="location_notice">현재 위치를 메모에 저장하거나 삭제할 수 있습니다.</string>
+    <string name="weather_notice">현재 날씨를 메모에 저장하거나 삭제할 수 있습니다.</string>
+    <string name="update">재설정</string>
+    <string name="delete">삭제</string>
+
+    <array name="main_item_array">
+        <item>Memo example</item>
+        <item>Room - Live Data example</item>
+    </array>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -91,24 +117,4 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="action_share">공유</string>
-    <string name="action_alarm">알람 설정</string>
-    <string name="action_location">위치 설정</string>
-    <string name="action_weather">날씨 설정</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="title">제목</string>
-    <string name="summary">내용</string>
-    <string name="edit_date">작성시간</string>
-
-    <string name="memo_hint">메모를 작성해주세요</string>
-
-    <string name="notice">안내</string>
-    <string name="alarm_notice">기존에 알람이 설정되어 있습니다. 삭제 또는 재설정할 수 있습니다.</string>
-    <string name="location_notice">현재 위치를 메모에 저장하거나 삭제할 수 있습니다.</string>
-    <string name="weather_notice">현재 날씨를 메모에 저장하거나 삭제할 수 있습니다.</string>
-    <string name="update">재설정</string>
-    <string name="delete">삭제</string>
 </resources>

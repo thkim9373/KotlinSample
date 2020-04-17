@@ -7,26 +7,27 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".application.DemoMemoApplication"
+        android:name="com.hoony.kotlinsample.memo.application.DemoMemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".intro.IntroActivity">
+        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.hoony.kotlinsample.memo.intro.IntroActivity" />
         <activity
-            android:name=".detail.DetailActivity"
+            android:name="com.hoony.kotlinsample.memo.detail.DetailActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".list.ListActivity"
+            android:name="com.hoony.kotlinsample.memo.list.ListActivity"
             android:label="@string/title_activity_list"
             android:parentActivityName="androidx.appcompat.app.AppCompatActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -34,9 +35,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="androidx.appcompat.app.AppCompatActivity" />
         </activity>
-        <activity android:name=".main.MainActivity" />
+        <activity android:name="com.hoony.kotlinsample.memo.main.MainActivity" />
+        <activity android:name=".room.RoomActivity" />
 
-        <receiver android:name=".broadcast_receiver.AlarmTool" />
+        <receiver android:name="com.hoony.kotlinsample.memo.broadcast_receiver.AlarmTool" />
     </application>
 
 </manifest>

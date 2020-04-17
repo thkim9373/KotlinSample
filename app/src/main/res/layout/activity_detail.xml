@@ -45,7 +45,7 @@
 
                     <view
                         android:id="@+id/alarmInfoView"
-                        class="com.hoony.kotlinsample.view.AlarmInfoView"
+                        class="com.hoony.kotlinsample.memo.view.AlarmInfoView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
@@ -54,7 +54,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.hoony.kotlinsample.view.LocationInfoView
+                    <com.hoony.kotlinsample.memo.view.LocationInfoView
                         android:id="@+id/locationInfoView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/alarmInfoView" />
 
-                    <com.hoony.kotlinsample.view.WeatherInfoView
+                    <com.hoony.kotlinsample.memo.view.WeatherInfoView
                         android:id="@+id/weatherInfoView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

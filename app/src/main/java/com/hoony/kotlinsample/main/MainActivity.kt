@@ -3,23 +3,32 @@ package com.hoony.kotlinsample.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.databinding.ActivityMainBinding
+import com.hoony.kotlinsample.memo.intro.IntroActivity
+import com.hoony.kotlinsample.room.RoomActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+    private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(
-            parent,
-            R.layout.activity_main
-        )
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-            .create(MainViewModel::class.java)
+        binding?.let {
+            it.rvList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            it.rvList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+            it.rvList.adapter = MainAdapter(
+                arrayOf(
+                    IntroActivity::class.java,
+                    RoomActivity::class.java
+                ),
+                resources.getStringArray(R.array.main_item_array)
+            )
+        }
     }
 }
