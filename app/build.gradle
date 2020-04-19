@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.takisoft.datetimepicker:datetimepicker:1.0.0'
     implementation 'com.naver.maps:map-sdk:3.7.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+
     implementation 'androidx.room:room-runtime:2.2.5'
-    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+    kapt 'androidx.room:room-compiler:2.2.5'
 }

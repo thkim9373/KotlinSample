@@ -23,7 +23,7 @@ class AppRepository {
             val appRepository = AppRepository()
             appRepository.let {
                 it.appDataBase = AppDataBase.getInstance(context)
-                it.userDao = it.appDataBase.userDao
+                it.userDao = it.appDataBase.userDao()
             }
             return appRepository
         }

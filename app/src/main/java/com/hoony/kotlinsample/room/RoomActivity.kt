@@ -43,7 +43,7 @@ class RoomActivity : AppCompatActivity() {
     }
 
     private fun setObserver() {
-        viewModel.userListLiveData.observe(
+        viewModel.userListLiveData?.observe(
             this,
             Observer {
                 binding.rvUser.adapter = RoomAdapter(it)

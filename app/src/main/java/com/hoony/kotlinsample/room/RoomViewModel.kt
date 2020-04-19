@@ -12,13 +12,15 @@ import com.hoony.kotlinsample.room.repository.tasks.UserInsertTask
 class RoomViewModel(application: Application) : AndroidViewModel(application),
     UserInsertTask.UserInsertTaskCallback, GetAllUserListTask.GetAllUserListTaskCallback {
 
+    private val appRepository: AppRepository by lazy {
+        AppRepository.getInstance(application)
+    }
+
     init {
         getAllUserList()
     }
 
-    private val appRepository = AppRepository.getInstance(application)
-
-    lateinit var userListLiveData: LiveData<List<User>>
+    var userListLiveData: LiveData<List<User>>? = null
 
     private val _toastMsgMutableLiveData = MutableLiveData<String>()
     val toastMsgLiveData: LiveData<String>
