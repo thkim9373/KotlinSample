@@ -8,4 +8,6 @@ import androidx.room.PrimaryKey
 class User(
     @PrimaryKey(autoGenerate = true) var id: Int,
     @ColumnInfo(name = "name") var name: String
-)
+) {
+    constructor(name: String) : this(1, name)
+}

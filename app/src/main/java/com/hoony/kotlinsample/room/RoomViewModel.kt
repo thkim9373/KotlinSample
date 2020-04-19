@@ -3,6 +3,7 @@ package com.hoony.kotlinsample.room
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.hoony.kotlinsample.room.db.table.user.User
 import com.hoony.kotlinsample.room.repository.AppRepository
 import com.hoony.kotlinsample.room.repository.tasks.GetAllUserListTask
@@ -11,12 +12,31 @@ import com.hoony.kotlinsample.room.repository.tasks.UserInsertTask
 class RoomViewModel(application: Application) : AndroidViewModel(application),
     UserInsertTask.UserInsertTaskCallback, GetAllUserListTask.GetAllUserListTaskCallback {
 
+    init {
+        getAllUserList()
+    }
+
     private val appRepository = AppRepository.getInstance(application)
 
-    private lateinit var userListLiveData: LiveData<List<User>>
+    lateinit var userListLiveData: LiveData<List<User>>
 
-    fun getAllUserList() {
+    private val _toastMsgMutableLiveData = MutableLiveData<String>()
+    val toastMsgLiveData: LiveData<String>
+        get() = _toastMsgMutableLiveData
+
+    private lateinit var name: String
+
+    fun setName(name: String) {
+        this.name = name
+    }
+
+    private fun getAllUserList() {
         appRepository.getAllUserList(this)
+    }
+
+    fun insertUser() {
+        val user = User(this.name)
+        appRepository.insertUser(user, this)
     }
 
     override fun onGetAllUserListTaskSuccess(userListLivaData: LiveData<List<User>>) {
@@ -24,18 +44,14 @@ class RoomViewModel(application: Application) : AndroidViewModel(application),
     }
 
     override fun onGetAllUserListTaskFail(e: Exception) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    fun insertUser(user: User) {
-        appRepository.insertUser(user, this)
+        this._toastMsgMutableLiveData.postValue("User list loading failed. Exception : $e")
     }
 
     override fun onUserInsertSuccess(user: User) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this._toastMsgMutableLiveData.postValue("User ${user.name} inserting completed.")
     }
 
     override fun onUserInsertFail(e: Exception) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this._toastMsgMutableLiveData.postValue("User inserting failed. Exception : $e")
     }
 }
