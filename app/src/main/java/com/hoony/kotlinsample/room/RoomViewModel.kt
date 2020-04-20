@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.hoony.kotlinsample.room.db.table.user.User
 import com.hoony.kotlinsample.room.repository.AppRepository
 import com.hoony.kotlinsample.room.repository.tasks.GetAllUserListTask
 import com.hoony.kotlinsample.room.repository.tasks.UserInsertTask
+import kotlinx.coroutines.launch
 
 class RoomViewModel(application: Application) : AndroidViewModel(application),
     UserInsertTask.UserInsertTaskCallback, GetAllUserListTask.GetAllUserListTaskCallback {
@@ -42,6 +44,12 @@ class RoomViewModel(application: Application) : AndroidViewModel(application),
     fun insertUser() {
         val user = User(this.name)
         appRepository.insertUser(user, this)
+    }
+
+    fun deleteAllUser() {
+        viewModelScope.launch {
+            appRepository.deleteAllUser()
+        }
     }
 
     override fun onGetAllUserListTaskSuccess(userListLivaData: LiveData<List<User>>) {

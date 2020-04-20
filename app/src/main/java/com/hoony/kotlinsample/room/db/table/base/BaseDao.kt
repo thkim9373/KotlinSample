@@ -1,9 +1,6 @@
 package com.hoony.kotlinsample.room.db.table.base
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Update
+import androidx.room.*
 
 interface BaseDao<T> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -11,6 +8,10 @@ interface BaseDao<T> {
 
     @Delete
     fun delete(t: T)
+
+    @Query("DELETE FROM user")
+    fun deleteAll()
+//    tList: List<T>
 
     @Update
     fun update(t: T)

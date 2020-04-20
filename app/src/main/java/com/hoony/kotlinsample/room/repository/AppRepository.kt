@@ -7,6 +7,8 @@ import com.hoony.kotlinsample.room.db.table.user.User
 import com.hoony.kotlinsample.room.db.table.user.UserDao
 import com.hoony.kotlinsample.room.repository.tasks.GetAllUserListTask
 import com.hoony.kotlinsample.room.repository.tasks.UserInsertTask
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AppRepository {
 
@@ -43,5 +45,11 @@ class AppRepository {
 
     fun insertUser(user: User, callback: UserInsertTask.UserInsertTaskCallback) {
         UserInsertTask(user, userDao, callback).execute()
+    }
+
+    suspend fun deleteAllUser() {
+        withContext(Dispatchers.IO) {
+            userDao.deleteAll()
+        }
     }
 }

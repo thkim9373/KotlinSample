@@ -43,7 +43,7 @@ class RoomActivity : AppCompatActivity() {
     }
 
     private fun setObserver() {
-        viewModel.userListLiveData?.observe(
+        viewModel.userListLiveData.observe(
             this,
             Observer {
                 binding.rvUser.adapter = RoomAdapter(it)
@@ -74,6 +74,9 @@ class RoomActivity : AppCompatActivity() {
         })
         binding.btAdd.setOnClickListener {
             viewModel.insertUser()
+        }
+        binding.btDelete.setOnClickListener {
+            viewModel.deleteAllUser()
         }
     }
 }
