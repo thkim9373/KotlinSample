@@ -7,6 +7,6 @@ import com.hoony.kotlinsample.room.db.table.base.BaseDao
 
 @Dao
 interface UserDao : BaseDao<User> {
-    @Query("select * from user")
+    @Query("select * from user as u order by u.id desc")
     fun getAll(): LiveData<List<User>>
 }

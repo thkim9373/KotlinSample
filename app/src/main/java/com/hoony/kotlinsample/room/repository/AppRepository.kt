@@ -1,6 +1,7 @@
 package com.hoony.kotlinsample.room.repository
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.hoony.kotlinsample.room.db.AppDataBase
 import com.hoony.kotlinsample.room.db.table.user.User
 import com.hoony.kotlinsample.room.db.table.user.UserDao
@@ -27,6 +28,10 @@ class AppRepository {
             }
             return appRepository
         }
+    }
+
+    fun getUserList(): LiveData<List<User>> {
+        return userDao.getAll()
     }
 
     private lateinit var appDataBase: AppDataBase

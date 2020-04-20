@@ -20,7 +20,10 @@ class RoomViewModel(application: Application) : AndroidViewModel(application),
         getAllUserList()
     }
 
-    var userListLiveData: LiveData<List<User>>? = null
+    //    var userListLiveData: LiveData<List<User>>? = null
+    val userListLiveData: LiveData<List<User>> by lazy {
+        appRepository.getUserList()
+    }
 
     private val _toastMsgMutableLiveData = MutableLiveData<String>()
     val toastMsgLiveData: LiveData<String>
@@ -42,7 +45,7 @@ class RoomViewModel(application: Application) : AndroidViewModel(application),
     }
 
     override fun onGetAllUserListTaskSuccess(userListLivaData: LiveData<List<User>>) {
-        this.userListLiveData = userListLivaData
+//        this.userListLiveData = userListLivaData
     }
 
     override fun onGetAllUserListTaskFail(e: Exception) {
