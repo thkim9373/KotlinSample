@@ -9,4 +9,7 @@ import com.hoony.kotlinsample.room.db.table.base.BaseDao
 interface UserDao : BaseDao<User> {
     @Query("select * from user as u order by u.id desc")
     fun getAll(): LiveData<List<User>>
+
+    @Query("DELETE FROM user")
+    fun deleteAll()
 }

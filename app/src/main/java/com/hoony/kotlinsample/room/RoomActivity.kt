@@ -1,8 +1,6 @@
 package com.hoony.kotlinsample.room
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer

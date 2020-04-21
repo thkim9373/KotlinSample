@@ -9,10 +9,6 @@ interface BaseDao<T> {
     @Delete
     fun delete(t: T)
 
-    @Query("DELETE FROM user")
-    fun deleteAll()
-//    tList: List<T>
-
     @Update
     fun update(t: T)
 }
