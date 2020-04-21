@@ -45,10 +45,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
-    implementation 'com.takisoft.datetimepicker:datetimepicker:1.0.0'
+
+//    implementation 'com.takisoft.datetimepicker:datetimepicker:1.0.0'
     implementation 'com.naver.maps:map-sdk:3.7.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     implementation 'androidx.room:room-runtime:2.2.5'
     kapt 'androidx.room:room-compiler:2.2.5'
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$life_cycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$life_cycle_version"
+
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
 }

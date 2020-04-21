@@ -28,8 +28,8 @@ import com.hoony.kotlinsample.R
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.MapView
-import com.takisoft.datetimepicker.DatePickerDialog
-import com.takisoft.datetimepicker.TimePickerDialog
+//import com.takisoft.datetimepicker.DatePickerDialog
+//import com.takisoft.datetimepicker.TimePickerDialog
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 import java.io.File
@@ -282,27 +282,27 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun openDateDialog() {
-        val datePickerDialog = DatePickerDialog(this)
-        datePickerDialog.setOnDateSetListener { _, year, month, dayOfMonth ->
-            dialogCalendar.set(year, month, dayOfMonth)
-            openTimeDialog()
-        }
-
-        datePickerDialog.show()
+//        val datePickerDialog = DatePickerDialog(this)
+//        datePickerDialog.setOnDateSetListener { _, year, month, dayOfMonth ->
+//            dialogCalendar.set(year, month, dayOfMonth)
+//            openTimeDialog()
+//        }
+//
+//        datePickerDialog.show()
     }
 
     private fun openTimeDialog() {
-        val timePickerDialog = TimePickerDialog(
-            this,
-            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                dialogCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                dialogCalendar.set(Calendar.MINUTE, minute)
-
-                viewModel?.setAlarm(dialogCalendar.time)
-            },
-            0, 0, false
-        )
-        timePickerDialog.show()
+//        val timePickerDialog = TimePickerDialog(
+//            this,
+//            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+//                dialogCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+//                dialogCalendar.set(Calendar.MINUTE, minute)
+//
+//                viewModel?.setAlarm(dialogCalendar.time)
+//            },
+//            0, 0, false
+//        )
+//        timePickerDialog.show()
     }
 
     override fun onBackPressed() {

@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.hoony.kotlinsample.room.RoomViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_container"
         android:layout_width="match_parent"
@@ -15,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:hint="Name"
+            android:text="@={viewModel.nameField}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +33,7 @@
             android:id="@+id/bt_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.insertUser()}"
             android:text="Add"
             app:layout_constraintEnd_toStartOf="@id/bt_delete"
             app:layout_constraintHorizontal_bias="0"
@@ -35,6 +44,7 @@
             android:id="@+id/bt_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.deleteAllUser()}"
             android:text="Delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"

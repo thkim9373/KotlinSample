@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import com.hoony.kotlinsample.room.db.AppDataBase
 import com.hoony.kotlinsample.room.db.table.user.User
 import com.hoony.kotlinsample.room.db.table.user.UserDao
-import com.hoony.kotlinsample.room.repository.tasks.GetAllUserListTask
 import com.hoony.kotlinsample.room.repository.tasks.UserInsertTask
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -39,12 +38,11 @@ class AppRepository {
     private lateinit var appDataBase: AppDataBase
     private lateinit var userDao: UserDao
 
-    fun getAllUserList(callback: GetAllUserListTask.GetAllUserListTaskCallback) {
-        GetAllUserListTask(userDao, callback).execute()
-    }
-
-    fun insertUser(user: User, callback: UserInsertTask.UserInsertTaskCallback) {
-        UserInsertTask(user, userDao, callback).execute()
+    suspend fun insertUser(user: User) {
+        withContext(Dispatchers.IO) {
+            userDao.insert(user)
+        }
+//        UserInsertTask(user, userDao, callback).execute()
     }
 
     suspend fun deleteAllUser() {

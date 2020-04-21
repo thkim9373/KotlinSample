@@ -24,6 +24,7 @@ class RoomAdapter(private val userList: List<User>) : RecyclerView.Adapter<UserI
     override fun onBindViewHolder(holder: UserItemHolder, position: Int) {
         val user = this.userList[position]
 
-        holder.binding?.tvTitle?.text = user.name
+//        holder.binding?.tvTitle?.text = user.name
+        holder.binding?.user = user
     }
 }

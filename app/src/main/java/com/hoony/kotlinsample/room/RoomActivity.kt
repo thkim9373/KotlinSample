@@ -25,10 +25,11 @@ class RoomActivity : AppCompatActivity() {
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         ).get(RoomViewModel::class.java)
+        binding.viewModel = this.viewModel
+        binding.lifecycleOwner = this
 
         setView()
         setObserver()
-        setListener()
     }
 
     private fun setView() {
@@ -55,28 +56,5 @@ class RoomActivity : AppCompatActivity() {
                 ToastPrinter.showToast(this, it)
             }
         )
-    }
-
-    private fun setListener() {
-        binding.etName.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                viewModel.setName(p0.toString())
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-        })
-        binding.btAdd.setOnClickListener {
-            viewModel.insertUser()
-        }
-        binding.btDelete.setOnClickListener {
-            viewModel.deleteAllUser()
-        }
     }
 }
