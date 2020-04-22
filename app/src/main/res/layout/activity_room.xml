@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.hoony.kotlinsample.room.RoomViewModel" />
@@ -56,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:setList="@{viewModel.userListLiveData}"
             app:layout_constraintTop_toBottomOf="@id/et_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

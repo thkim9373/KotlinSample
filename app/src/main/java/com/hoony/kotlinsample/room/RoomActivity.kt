@@ -42,12 +42,12 @@ class RoomActivity : AppCompatActivity() {
     }
 
     private fun setObserver() {
-        viewModel.userListLiveData.observe(
-            this,
-            Observer {
-                binding.rvUser.adapter = RoomAdapter(it)
-            }
-        )
+//        viewModel.userListLiveData.observe(
+//            this,
+//            Observer {
+//                binding.rvUser.adapter = RoomAdapter(it)
+//            }
+//        )
         viewModel.toastMsgLiveData.observe(
             this,
             Observer {

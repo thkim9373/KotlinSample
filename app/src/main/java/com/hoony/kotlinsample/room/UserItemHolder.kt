@@ -1,16 +1,14 @@
 package com.hoony.kotlinsample.room
 
-import android.view.View
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hoony.kotlinsample.databinding.ItemSingleTextBinding
+import com.hoony.kotlinsample.room.db.table.user.User
 
-class UserItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    var binding: ItemSingleTextBinding?
-
-    init {
-        itemView.let {
-            binding = DataBindingUtil.bind(it)
+class UserItemHolder(private val binding: ItemSingleTextBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: User) {
+        binding.apply {
+            user = item
         }
     }
 }
