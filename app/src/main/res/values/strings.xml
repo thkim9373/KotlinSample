@@ -26,6 +26,7 @@
     <array name="main_item_array">
         <item>Memo example</item>
         <item>Room - Live Data example</item>
+        <item>Content provider example</item>
     </array>
 
     <string name="large_text">
