@@ -40,6 +40,7 @@
         <activity android:name="com.hoony.kotlinsample.memo.main.MainActivity" />
         <activity android:name=".room.RoomActivity" />
         <activity android:name=".content_provider.list.ListActivity" />
+        <activity android:name=".content_provider.contact.ContactActivity" />
 
         <receiver android:name="com.hoony.kotlinsample.memo.broadcast_receiver.AlarmTool" />
     </application>

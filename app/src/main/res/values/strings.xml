@@ -29,6 +29,10 @@
         <item>Content provider example</item>
     </array>
 
+    <array name="content_provider_example_array">
+        <item>Contact example</item>
+    </array>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
