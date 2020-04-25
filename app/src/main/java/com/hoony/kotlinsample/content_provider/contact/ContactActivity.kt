@@ -10,6 +10,7 @@ import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,6 +51,17 @@ class ContactActivity : AppCompatActivity() {
             it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             it.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         }
+
+        setObserver()
+    }
+
+    private fun setObserver() {
+        viewModel.contactListLiveData.observe(
+            this,
+            Observer {
+                binding.rvContacts.adapter = ContactAdapter(it)
+            }
+        )
     }
 
     override fun onRequestPermissionsResult(

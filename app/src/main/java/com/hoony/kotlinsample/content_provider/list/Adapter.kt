@@ -13,7 +13,7 @@ class Adapter(private val targetClasses: Array<Class<*>>, private val titleArray
         return ListItem(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.item_single_text,
+                R.layout.item_main,
                 parent,
                 false
             )
