@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoony.kotlinsample.R
+import com.hoony.kotlinsample.content_provider.audio.AudioActivity
 import com.hoony.kotlinsample.content_provider.contact.ContactActivity
 import com.hoony.kotlinsample.databinding.ActivityContentProviderListBinding
 
@@ -24,7 +25,8 @@ class ListActivity : AppCompatActivity() {
             val titleArray = resources.getStringArray(R.array.content_provider_example_array)
             it.adapter = Adapter(
                 arrayOf(
-                    ContactActivity::class.java
+                    ContactActivity::class.java,
+                    AudioActivity::class.java
                 ),
                 titleArray
             )

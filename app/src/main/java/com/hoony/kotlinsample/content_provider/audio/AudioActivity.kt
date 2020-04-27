@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.content_provider.contact
+package com.hoony.kotlinsample.content_provider.audio
 
 import android.Manifest
 import android.content.Intent
@@ -12,27 +12,24 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.hoony.kotlinsample.R
-import com.hoony.kotlinsample.databinding.ActivityContactBinding
+import com.hoony.kotlinsample.databinding.ActivityAudioBinding
 
-class ContactActivity : AppCompatActivity() {
+class AudioActivity : AppCompatActivity() {
 
-    private val PERMISSION_CONTACTS =
-        arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS)
+    private val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
 
-    private lateinit var binding: ActivityContactBinding
-    private lateinit var viewModel: ContactViewModel
+    lateinit var binding: ActivityAudioBinding
+    lateinit var viewModel: AudioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            for (permission in PERMISSION_CONTACTS) {
+            for (permission in this.permissions) {
                 if (checkSelfPermission(permission) == PackageManager.PERMISSION_DENIED) {
-                    requestPermissions(PERMISSION_CONTACTS, 0)
-                    return
+                    requestPermissions(permissions, 0)
                 }
             }
         }
@@ -41,25 +38,18 @@ class ContactActivity : AppCompatActivity() {
     }
 
     private fun setView() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_contact)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_audio)
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(ContactViewModel::class.java)
+        ).get(AudioViewModel::class.java)
 
-        binding.rvContacts.let {
-            it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-            it.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        }
+        binding.svAlbumData.layoutManager = GridLayoutManager(this, 2)
 
-        setObserver()
-    }
-
-    private fun setObserver() {
-        viewModel.contactListLiveData.observe(
+        viewModel.albumListLiveData.observe(
             this,
             Observer {
-                binding.rvContacts.adapter = ContactAdapter(it)
+                binding.svAlbumData.adapter = AudioListAdapter(it)
             }
         )
     }
