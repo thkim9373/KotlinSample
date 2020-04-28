@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.hoony.kotlinsample.content_provider.data.Album
+import java.io.File
 
 class AudioViewModel(application: Application) : AndroidViewModel(application) {
     private val audioInfoCursor: Cursor? by lazy {
@@ -29,10 +30,16 @@ class AudioViewModel(application: Application) : AndroidViewModel(application) {
             val artistIndex = it.getColumnIndexOrThrow(MediaStore.Audio.Albums.ARTIST)
             val numOfSongIndex = it.getColumnIndexOrThrow(MediaStore.Audio.Albums.NUMBER_OF_SONGS)
 
+            MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI
+
             while (it.moveToNext()) {
                 albumList.add(
                     Album(
-                        Uri.parse(it.getString(idIndex)),
+                        if (it.getString(idIndex) != null) {
+                            Uri.fromFile(File(it.getString(idIndex)))
+                        } else {
+                            null
+                        },
                         it.getString(artistIndex),
                         it.getInt(numOfSongIndex)
                     )

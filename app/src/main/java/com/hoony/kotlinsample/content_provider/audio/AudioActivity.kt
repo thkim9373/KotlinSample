@@ -30,14 +30,15 @@ class AudioActivity : AppCompatActivity() {
             for (permission in this.permissions) {
                 if (checkSelfPermission(permission) == PackageManager.PERMISSION_DENIED) {
                     requestPermissions(permissions, 0)
+                    return
                 }
             }
         }
 
-        setView()
+        createView()
     }
 
-    private fun setView() {
+    private fun createView() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_audio)
         viewModel = ViewModelProvider(
             this,
@@ -46,6 +47,10 @@ class AudioActivity : AppCompatActivity() {
 
         binding.svAlbumData.layoutManager = GridLayoutManager(this, 2)
 
+        setObserver()
+    }
+
+    private fun setObserver() {
         viewModel.albumListLiveData.observe(
             this,
             Observer {
@@ -83,6 +88,6 @@ class AudioActivity : AppCompatActivity() {
             }
         }
 
-        setView()
+        createView()
     }
 }

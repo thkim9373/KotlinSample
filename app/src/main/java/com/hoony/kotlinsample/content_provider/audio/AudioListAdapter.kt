@@ -1,6 +1,7 @@
 package com.hoony.kotlinsample.content_provider.audio
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -30,11 +31,16 @@ class AudioListAdapter(private val albumList: List<Album>) : RecyclerView.Adapte
             it.tvArtist.text = album.artist
             it.tvNumOfSong.text = album.numOfSong.toString()
 
-            Glide.with(it.root)
-                .load(album.uri)
-                .thumbnail(0.5f)
-                .centerCrop()
-                .into(it.ivAlbumArt)
+            if (album.uri != null) {
+                it.ivAlbumArt.visibility = View.VISIBLE
+                Glide.with(it.root.context)
+                    .load(album.uri)
+                    .thumbnail(0.5f)
+                    .centerCrop()
+                    .into(it.ivAlbumArt)
+            } else {
+                it.ivAlbumArt.visibility = View.INVISIBLE
+            }
         }
     }
 }
