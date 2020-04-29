@@ -26,17 +26,15 @@ class AudioViewModel(application: Application) : AndroidViewModel(application) {
         val albumList = ArrayList<Album>()
 
         audioInfoCursor?.let {
-            val idIndex = it.getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM_ART)
+            val albumArtIndex = it.getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM_ART)
             val artistIndex = it.getColumnIndexOrThrow(MediaStore.Audio.Albums.ARTIST)
             val numOfSongIndex = it.getColumnIndexOrThrow(MediaStore.Audio.Albums.NUMBER_OF_SONGS)
-
-            MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI
 
             while (it.moveToNext()) {
                 albumList.add(
                     Album(
-                        if (it.getString(idIndex) != null) {
-                            Uri.fromFile(File(it.getString(idIndex)))
+                        if (it.getString(albumArtIndex) != null) {
+                            Uri.fromFile(File(it.getString(albumArtIndex)))
                         } else {
                             null
                         },
