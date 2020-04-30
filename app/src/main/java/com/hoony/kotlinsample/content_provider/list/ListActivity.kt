@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.content_provider.audio.AudioActivity
 import com.hoony.kotlinsample.content_provider.contact.ContactActivity
+import com.hoony.kotlinsample.content_provider.video.VideoActivity
 import com.hoony.kotlinsample.databinding.ActivityContentProviderListBinding
 
 class ListActivity : AppCompatActivity() {
@@ -26,7 +27,8 @@ class ListActivity : AppCompatActivity() {
             it.adapter = Adapter(
                 arrayOf(
                     ContactActivity::class.java,
-                    AudioActivity::class.java
+                    AudioActivity::class.java,
+                    VideoActivity::class.java
                 ),
                 titleArray
             )

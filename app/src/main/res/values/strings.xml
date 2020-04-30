@@ -32,6 +32,7 @@
     <array name="content_provider_example_array">
         <item>Contact example</item>
         <item>Album example</item>
+        <item>video example</item>
     </array>
 
     <string name="album_divider">|</string>
