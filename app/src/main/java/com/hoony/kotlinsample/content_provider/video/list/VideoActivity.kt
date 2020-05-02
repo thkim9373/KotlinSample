@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.content_provider.video
+package com.hoony.kotlinsample.content_provider.video.list
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -8,9 +8,13 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoony.kotlinsample.R
+import com.hoony.kotlinsample.databinding.ActivityVideoListBinding
 
 class VideoActivity : AppCompatActivity() {
 
@@ -18,7 +22,9 @@ class VideoActivity : AppCompatActivity() {
         android.Manifest.permission.READ_EXTERNAL_STORAGE
     )
 
+    private lateinit var binding: ActivityVideoListBinding
     private lateinit var viewModel: VideoViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,19 +46,35 @@ class VideoActivity : AppCompatActivity() {
     }
 
     private fun createView() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_video_list)
         viewModel =
             ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(
                 VideoViewModel::class.java
             )
 
+        setView()
         setObserve()
+    }
+
+    private fun setView() {
+        binding.rvList.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvList.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
     }
 
     private fun setObserve() {
         viewModel.videoListLiveData.observe(
             this,
             Observer {
-
+                binding.rvList.adapter =
+                    VideoAdapter(
+                        it
+                    )
             }
         )
     }

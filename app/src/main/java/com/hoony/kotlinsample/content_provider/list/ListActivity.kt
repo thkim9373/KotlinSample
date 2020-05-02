@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.content_provider.audio.AudioActivity
 import com.hoony.kotlinsample.content_provider.contact.ContactActivity
-import com.hoony.kotlinsample.content_provider.video.VideoActivity
+import com.hoony.kotlinsample.content_provider.video.list.VideoActivity
 import com.hoony.kotlinsample.databinding.ActivityContentProviderListBinding
 
 class ListActivity : AppCompatActivity() {

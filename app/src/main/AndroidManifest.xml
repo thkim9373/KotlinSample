@@ -43,7 +43,8 @@
         <activity android:name=".content_provider.list.ListActivity" />
         <activity android:name=".content_provider.contact.ContactActivity" />
         <activity android:name=".content_provider.audio.AudioActivity" />
-        <activity android:name=".content_provider.video.VideoActivity" />
+        <activity android:name=".content_provider.video.list.VideoActivity" />
+        <activity android:name=".content_provider.video.player.VideoPlayerActivity" />
 
         <receiver android:name="com.hoony.kotlinsample.memo.broadcast_receiver.AlarmTool" />
     </application>
