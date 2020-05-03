@@ -60,6 +60,9 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
-    
+
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    implementation "com.google.android.exoplayer:exoplayer-core:$exo_player_version"
+    implementation "com.google.android.exoplayer:exoplayer-ui:$exo_player_version"
 }
