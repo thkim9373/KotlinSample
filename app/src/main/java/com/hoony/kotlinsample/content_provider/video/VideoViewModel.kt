@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.content_provider.video.list
+package com.hoony.kotlinsample.content_provider.video
 
 import android.app.Application
 import android.database.Cursor

@@ -19,12 +19,12 @@ class VideoPlayerActivity : AppCompatActivity() {
         val dataSourceFactory =
             DefaultDataSourceFactory(this, Util.getUserAgent(this, getString(R.string.app_name)))
 
-        val videoSource =
-            ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource()
-
-        mPlayer.prepare(videoSource)
-        mPlayer.playWhenReady = true
+//        val videoSource =
+//            ProgressiveMediaSource.Factory(dataSourceFactory)
+//                .createMediaSource()
+//
+//        mPlayer.prepare(videoSource)
+//        mPlayer.playWhenReady = true
     }
 
     override fun onDestroy() {

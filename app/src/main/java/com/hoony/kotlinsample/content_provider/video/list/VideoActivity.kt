@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoony.kotlinsample.R
+import com.hoony.kotlinsample.content_provider.video.VideoViewModel
 import com.hoony.kotlinsample.databinding.ActivityVideoListBinding
 
 class VideoActivity : AppCompatActivity() {
