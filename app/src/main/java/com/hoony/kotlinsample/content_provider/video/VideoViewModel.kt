@@ -6,6 +6,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.hoony.kotlinsample.content_provider.data.Video
 import java.util.*
@@ -55,5 +56,15 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         emit(videoList as List<Video>)
+    }
+
+    private val _videoMutableLiveData = MutableLiveData<Video>()
+    val videoLiveData: LiveData<Video>
+    get() = _videoMutableLiveData
+
+    fun setSelectedData(position: Int) {
+        this.videoListLiveData.value?.let {
+            this._videoMutableLiveData.postValue(it[position])
+        }
     }
 }
