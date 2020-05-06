@@ -22,6 +22,7 @@ class Adapter(private val targetClasses: Array<Class<*>>, private val titleArray
 
     override fun getItemCount(): Int {
         return titleArray.size
+        return titleArray.size
     }
 
     override fun onBindViewHolder(holder: ListItem, position: Int) {
