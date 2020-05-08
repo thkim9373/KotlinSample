@@ -26,11 +26,33 @@ class PlayerFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(
-            viewModelStore,
+            requireActivity(),
             ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
         ).get(VideoViewModel::class.java)
 
         setObserver()
+    }
+
+    private fun setObserver() {
+        viewModel.videoLiveData.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    val dataSourceFactory =
+                        DefaultDataSourceFactory(
+                            requireContext(),
+                            Util.getUserAgent(requireContext(), getString(R.string.app_name))
+                        )
+
+                    val videoSource =
+                        ProgressiveMediaSource.Factory(dataSourceFactory)
+                            .createMediaSource(it.uri)
+
+                    mPlayer.prepare(videoSource)
+                    mPlayer.playWhenReady = true
+                }
+            }
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,13 +60,13 @@ class PlayerFragment : Fragment() {
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-
+                viewModel.removeSelectedData()
+                requireActivity().supportFragmentManager.beginTransaction().remove(this@PlayerFragment).commit()
             }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,32 +84,14 @@ class PlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
         mPlayer = ExoPlayerFactory.newSimpleInstance(requireContext())
-    }
 
-    private fun setObserver() {
-        viewModel.videoLiveData.observe(
-            viewLifecycleOwner,
-            Observer {
-                val dataSourceFactory =
-                    DefaultDataSourceFactory(
-                        requireContext(),
-                        Util.getUserAgent(requireContext(), getString(R.string.app_name))
-                    )
-
-                val videoSource =
-                    ProgressiveMediaSource.Factory(dataSourceFactory)
-                        .createMediaSource(it.uri)
-
-                mPlayer.prepare(videoSource)
-                mPlayer.playWhenReady = true
-            }
-        )
+        binding.playerView.player = mPlayer
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        binding.playerView.player = null
         mPlayer.release()
     }
 }

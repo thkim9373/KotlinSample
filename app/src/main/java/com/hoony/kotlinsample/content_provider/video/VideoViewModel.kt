@@ -60,11 +60,15 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _videoMutableLiveData = MutableLiveData<Video>()
     val videoLiveData: LiveData<Video>
-    get() = _videoMutableLiveData
+        get() = _videoMutableLiveData
 
     fun setSelectedData(position: Int) {
         this.videoListLiveData.value?.let {
             this._videoMutableLiveData.postValue(it[position])
         }
+    }
+
+    fun removeSelectedData() {
+        this._videoMutableLiveData.postValue(null)
     }
 }

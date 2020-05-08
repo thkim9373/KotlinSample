@@ -15,9 +15,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.content_provider.video.VideoViewModel
+import com.hoony.kotlinsample.content_provider.video.player.PlayerFragment
 import com.hoony.kotlinsample.databinding.ActivityVideoListBinding
 
-class VideoActivity : AppCompatActivity() {
+class VideoActivity : AppCompatActivity(), VideoItemHolder.OnVideoItemClickListener {
 
     private val permissions = arrayOf(
         android.Manifest.permission.READ_EXTERNAL_STORAGE
@@ -25,6 +26,7 @@ class VideoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVideoListBinding
     private lateinit var viewModel: VideoViewModel
+    private val mPlayerFragment = PlayerFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +56,7 @@ class VideoActivity : AppCompatActivity() {
             )
 
         setView()
-        setObserve()
+        setObserver()
     }
 
     private fun setView() {
@@ -68,16 +70,39 @@ class VideoActivity : AppCompatActivity() {
         )
     }
 
-    private fun setObserve() {
+    private fun setObserver() {
         viewModel.videoListLiveData.observe(
             this,
             Observer {
                 binding.rvList.adapter =
                     VideoAdapter(
-                        it
+                        it,
+                        this
                     )
             }
         )
+        viewModel.videoLiveData.observe(
+            this,
+            Observer {
+                if (it != null) {
+                    showPlayerFragment()
+                } else {
+                    removePlayerFragment()
+                }
+            }
+        )
+    }
+
+    private fun showPlayerFragment() {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransition = fragmentManager.beginTransaction()
+        fragmentTransition.replace(binding.frameLayoutPlayer.id, mPlayerFragment).commit()
+    }
+
+    private fun removePlayerFragment() {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransition = fragmentManager.beginTransaction()
+        fragmentTransition.remove(mPlayerFragment).commit()
     }
 
     override fun onRequestPermissionsResult(
@@ -110,5 +135,9 @@ class VideoActivity : AppCompatActivity() {
         }
 
         createView()
+    }
+
+    override fun onVideoItemClick(position: Int) {
+        viewModel.setSelectedData(position)
     }
 }

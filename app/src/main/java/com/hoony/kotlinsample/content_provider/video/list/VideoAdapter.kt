@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.content_provider.data.Video
 
-class VideoAdapter(private val list: List<Video>) : RecyclerView.Adapter<VideoItemHolder>() {
+class VideoAdapter(
+    private val list: List<Video>,
+    private val callback: VideoItemHolder.OnVideoItemClickListener
+) : RecyclerView.Adapter<VideoItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoItemHolder {
         return VideoItemHolder(
             DataBindingUtil.inflate(
@@ -15,7 +18,8 @@ class VideoAdapter(private val list: List<Video>) : RecyclerView.Adapter<VideoIt
                 R.layout.item_video,
                 parent,
                 false
-            )
+            ),
+            callback
         )
     }
 
