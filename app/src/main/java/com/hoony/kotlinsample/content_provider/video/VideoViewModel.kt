@@ -17,11 +17,11 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
     private val projection = arrayOf(
         MediaStore.Video.Media._ID,
         MediaStore.Video.Media.DISPLAY_NAME,
-        MediaStore.Video.Media.DATE_ADDED,
+        MediaStore.Video.Media.DATE_MODIFIED,
         MediaStore.Video.Media.SIZE
     )
 
-    private val sortOrder = "${MediaStore.Video.Media.DATE_ADDED} DESC"
+    private val sortOrder = "${MediaStore.Video.Media.DATE_MODIFIED} DESC"
 
     private val cursor: Cursor? by lazy {
         application.contentResolver.query(

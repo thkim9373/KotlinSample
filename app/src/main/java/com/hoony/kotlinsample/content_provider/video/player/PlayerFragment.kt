@@ -61,7 +61,6 @@ class PlayerFragment : Fragment() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 viewModel.removeSelectedData()
-                requireActivity().supportFragmentManager.beginTransaction().remove(this@PlayerFragment).commit()
             }
         }
 
