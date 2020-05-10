@@ -47,6 +47,7 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
                 val displayName = it.getString(displayNameIndex)
                 val dateAdded = Date(it.getLong(dateAddedIndex))
                 val size = it.getLong(sizeIndex)
+                
                 val contentUri = Uri.withAppendedPath(
                     MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                     id.toString()
