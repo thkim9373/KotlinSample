@@ -39,7 +39,7 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
         cursor?.let {
             val idIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
             val displayNameIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)
-            val dateAddedIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED)
+            val dateAddedIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_MODIFIED)
             val sizeIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE)
 
             while (it.moveToNext()) {
