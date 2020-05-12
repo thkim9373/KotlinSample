@@ -29,8 +29,7 @@ class AudioViewModel(application: Application) : AndroidViewModel(application) {
             val idIndex = it.getColumnIndexOrThrow(MediaStore.Audio.Albums._ID)
             val artistIndex = it.getColumnIndexOrThrow(MediaStore.Audio.Albums.ARTIST)
             val numOfSongIndex = it.getColumnIndexOrThrow(MediaStore.Audio.Albums.NUMBER_OF_SONGS)
-
-
+            
             while (it.moveToNext()) {
                 albumList.add(
                     Album(

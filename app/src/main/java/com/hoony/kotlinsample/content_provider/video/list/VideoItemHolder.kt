@@ -19,7 +19,7 @@ class VideoItemHolder(
 
         val formatString = DateFormat.getBestDateTimePattern(
             Locale.getDefault(),
-            "yyyy.MM.dd EEE HH:mm"
+            "yyyy.MM.dd EEE hh:mm aa"
         )
         binding.tvDate.text =
             SimpleDateFormat(

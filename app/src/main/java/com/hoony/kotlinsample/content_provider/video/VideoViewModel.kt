@@ -17,11 +17,11 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
     private val projection = arrayOf(
         MediaStore.Video.Media._ID,
         MediaStore.Video.Media.DISPLAY_NAME,
-        MediaStore.Video.Media.DATE_MODIFIED,
+        MediaStore.Video.Media.DATE_ADDED,
         MediaStore.Video.Media.SIZE
     )
 
-    private val sortOrder = "${MediaStore.Video.Media.DATE_MODIFIED} DESC"
+    private val sortOrder = "${MediaStore.Video.Media.DATE_ADDED} DESC"
 
     private val cursor: Cursor? by lazy {
         application.contentResolver.query(
@@ -39,15 +39,15 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
         cursor?.let {
             val idIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
             val displayNameIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)
-            val dateAddedIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_MODIFIED)
+            val dateAddedIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED)
             val sizeIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE)
 
             while (it.moveToNext()) {
                 val id = it.getLong(idIndex)
                 val displayName = it.getString(displayNameIndex)
-                val dateAdded = Date(it.getLong(dateAddedIndex))
+                val dateAdded = Date(it.getLong(dateAddedIndex) * 1000)
                 val size = it.getLong(sizeIndex)
-                
+
                 val contentUri = Uri.withAppendedPath(
                     MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                     id.toString()
