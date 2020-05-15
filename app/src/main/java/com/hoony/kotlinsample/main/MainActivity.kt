@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.content_provider.list.ListActivity
+import com.hoony.kotlinsample.custom_view.CustomViewActivity
 import com.hoony.kotlinsample.databinding.ActivityMainBinding
 import com.hoony.kotlinsample.memo.intro.IntroActivity
 import com.hoony.kotlinsample.room.RoomActivity
@@ -27,7 +28,8 @@ class MainActivity : AppCompatActivity() {
                 arrayOf(
                     IntroActivity::class.java,
                     RoomActivity::class.java,
-                    ListActivity::class.java
+                    ListActivity::class.java,
+                    CustomViewActivity::class.java
                 ),
                 resources.getStringArray(R.array.main_item_array)
             )

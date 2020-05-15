@@ -27,6 +27,7 @@
         <item>Memo example</item>
         <item>Room - Live Data example</item>
         <item>Content provider example</item>
+        <item>Custom view example</item>
     </array>
 
     <array name="content_provider_example_array">
