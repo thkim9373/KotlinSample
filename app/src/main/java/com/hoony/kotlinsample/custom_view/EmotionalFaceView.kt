@@ -1,10 +1,7 @@
 package com.hoony.kotlinsample.custom_view
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 
@@ -20,7 +17,9 @@ class EmotionalFaceView : View {
     // Face border width in pixels.
     private val borderWidth = 4.0f
     // View size in pixels.
-    private val size = 320
+    private var size = 320
+
+    private val mouthPath = Path()
 
     constructor(context: Context) : this(context, null)
 
@@ -83,6 +82,25 @@ class EmotionalFaceView : View {
     }
 
     private fun drawMouth(canvas: Canvas) {
+        mouthPath.moveTo(size * 0.22f, size * 0.7f)
 
+        mouthPath.quadTo(size * 0.50f, size * 0.80f, size * 0.78f, size * 0.70f)
+
+        mouthPath.quadTo(size * 0.50f, size * 0.90f, size * 0.22f, size * 0.70f)
+
+        paint.color = mouthColor
+        paint.style = Paint.Style.FILL
+
+        canvas.drawPath(mouthPath, paint)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        // Calculate the smaller dimension of your view
+        size = Math.min(measuredWidth, measuredHeight)
+        // Use setMeasuredDimension(Int, Int) to store the measured width and measured height of
+        // the view, in this case making your view width and height equivalent.
+        setMeasuredDimension(size, size)
     }
 }
