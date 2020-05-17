@@ -4,31 +4,82 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.hoony.kotlinsample.R
 
-class EmotionalFaceView : View {
+class EmotionalFaceView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+    View(context, attrs, defStyleAttr) {
+
+    // Add two constants, one for the HAPPY state and one for the SAD state.
+    companion object {
+        private const val DEFAULT_FACE_COLOR = Color.YELLOW
+        private const val DEFAULT_EYES_COLOR = Color.BLACK
+        private const val DEFAULT_MOUTH_COLOR = Color.BLACK
+        private const val DEFAULT_BORDER_COLOR = Color.BLACK
+        private const val DEFAULT_BORDER_WIDTH = 4.0f
+
+        const val HAPPY = 0L
+        const val SAD = 1L
+    }
+
+    // Setup default values of the XML attribute properties, in case a user of the custom
+    // view does not set one of them.
+
+    // Some colors for the background, eyes and mouth.
+    private var faceColor = DEFAULT_FACE_COLOR
+    private var eyesColor = DEFAULT_EYES_COLOR
+    private var mouthColor = DEFAULT_MOUTH_COLOR
+    private var borderColor = DEFAULT_BORDER_COLOR
+    // Face border width in pixels.
+    private var borderWidth = DEFAULT_BORDER_WIDTH
 
     // Paint object for coloring and styling
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-    // Some colors for the background, eyes and mouth.
-    private val faceColor = Color.YELLOW
-    private val eyesColor = Color.BLACK
-    private val mouthColor = Color.BLACK
-    private val borderColor = Color.BLACK
-    // Face border width in pixels.
-    private val borderWidth = 4.0f
-    // View size in pixels.
-    private var size = 320
-
     private val mouthPath = Path()
+    // View size in pixels.
+    private var size = 0
+
+    // Add a new property called happinessStyle for rhe face happiness state.
+    var happinessState = HAPPY
+        set(state) {
+            field = state
+            // Call the invalidate() method in the set happinessState method. The invalidate()
+            // method makes Android redraw the view by calling onDraw()
+            invalidate()
+        }
+
+    // Call a new private setupAttributes() method from the init block.
+    init {
+        paint.isAntiAlias = true
+        setupAttributes(attrs)
+    }
+
+    private fun setupAttributes(attrs: AttributeSet?) {
+        // Obtain a typed array of the XML attributes.
+        val typedArray =
+            context.theme.obtainStyledAttributes(attrs, R.styleable.EmotionalFaceView, 0, 0)
+
+        // Extract custom attributes into member variables.
+        happinessState =
+            typedArray.getInt(R.styleable.EmotionalFaceView_state, HAPPY.toInt()).toLong()
+        faceColor = typedArray.getColor(R.styleable.EmotionalFaceView_faceColor, DEFAULT_FACE_COLOR)
+        eyesColor = typedArray.getColor(R.styleable.EmotionalFaceView_eyesColor, DEFAULT_EYES_COLOR)
+        mouthColor =
+            typedArray.getColor(R.styleable.EmotionalFaceView_mouthColor, DEFAULT_MOUTH_COLOR)
+        borderColor =
+            typedArray.getColor(R.styleable.EmotionalFaceView_borderColor, DEFAULT_BORDER_COLOR)
+        borderWidth =
+            typedArray.getDimension(R.styleable.EmotionalFaceView_borderWidth, DEFAULT_BORDER_WIDTH)
+
+        // Recycle the typedArray to make the data associated with it ready for garbage collection.
+        typedArray.recycle()
+    }
 
     constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+    constructor(context: Context, attrs: AttributeSet?) : this(
         context,
         attrs,
-        defStyleAttr
+        0
     )
 
     override fun onDraw(canvas: Canvas) {
