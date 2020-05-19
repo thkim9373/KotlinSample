@@ -2,6 +2,8 @@ package com.hoony.kotlinsample.custom_view
 
 import android.content.Context
 import android.graphics.*
+import android.os.Bundle
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
 import com.hoony.kotlinsample.R
@@ -164,5 +166,28 @@ class EmotionalFaceView(context: Context, attrs: AttributeSet?, defStyleAttr: In
         // Use setMeasuredDimension(Int, Int) to store the measured width and measured height of
         // the view, in this case making your view width and height equivalent.
         setMeasuredDimension(size, size)
+    }
+
+    override fun onSaveInstanceState(): Parcelable {
+        // Create a new Bundle object to put your into.
+        val bundle = Bundle()
+        // Put the happiness state value into the bundle.
+        bundle.putLong("happinessState", happinessState)
+        // Put the state coming from the superclass, in order to not lose any data saved by the
+        // superclass, then return the bundle.
+        bundle.putParcelable("superState", super.onSaveInstanceState())
+        return bundle
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        // Check the type of the Parcelable to cast it to a Bundle object.
+        var viewState = state
+        if (viewState is Bundle) {
+            // Get the happiness value.
+            happinessState = viewState.getLong("happinessState", HAPPY)
+            // Get the superstate then it to the super method.
+            viewState = viewState.getParcelable("superState")
+        }
+        super.onRestoreInstanceState(viewState)
     }
 }
