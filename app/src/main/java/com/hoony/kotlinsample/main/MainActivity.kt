@@ -11,6 +11,7 @@ import com.hoony.kotlinsample.custom_view.CustomViewActivity
 import com.hoony.kotlinsample.databinding.ActivityMainBinding
 import com.hoony.kotlinsample.memo.intro.IntroActivity
 import com.hoony.kotlinsample.room.RoomActivity
+import com.hoony.kotlinsample.saved_state_view_model.SavedStateViewModelActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +30,8 @@ class MainActivity : AppCompatActivity() {
                     IntroActivity::class.java,
                     RoomActivity::class.java,
                     ListActivity::class.java,
-                    CustomViewActivity::class.java
+                    CustomViewActivity::class.java,
+                    SavedStateViewModelActivity::class.java
                 ),
                 resources.getStringArray(R.array.main_item_array)
             )
