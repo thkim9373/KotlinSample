@@ -29,6 +29,7 @@
         <item>Content provider example</item>
         <item>Custom view example</item>
         <item>Saved state view model example</item>
+        <item>Dagger example</item>
     </array>
 
     <array name="content_provider_example_array">
