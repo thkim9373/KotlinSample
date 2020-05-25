@@ -1,15 +1,15 @@
-package com.hoony.kotlinsample.dagger
+package com.hoony.kotlinsample.dagger.example1
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.hoony.kotlinsample.R
-import com.hoony.kotlinsample.dagger.component.DaggerPetComponent
-import com.hoony.kotlinsample.dagger.data.Cat
-import com.hoony.kotlinsample.dagger.data.Dog
-import com.hoony.kotlinsample.dagger.module.CatModule
-import com.hoony.kotlinsample.dagger.module.DogModule
+import com.hoony.kotlinsample.dagger.example1.component.DaggerPetComponent
+import com.hoony.kotlinsample.dagger.example1.data.Cat
+import com.hoony.kotlinsample.dagger.example1.data.Dog
+import com.hoony.kotlinsample.dagger.example1.module.CatModule
+import com.hoony.kotlinsample.dagger.example1.module.DogModule
 import com.hoony.kotlinsample.databinding.ActivityDaggerExample1Binding
 import javax.inject.Inject
 

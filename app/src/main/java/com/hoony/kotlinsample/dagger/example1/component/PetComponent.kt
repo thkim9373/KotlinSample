@@ -1,8 +1,8 @@
-package com.hoony.kotlinsample.dagger.component
+package com.hoony.kotlinsample.dagger.example1.component
 
-import com.hoony.kotlinsample.dagger.DaggerActivity
-import com.hoony.kotlinsample.dagger.module.CatModule
-import com.hoony.kotlinsample.dagger.module.DogModule
+import com.hoony.kotlinsample.dagger.example1.DaggerActivity
+import com.hoony.kotlinsample.dagger.example1.module.CatModule
+import com.hoony.kotlinsample.dagger.example1.module.DogModule
 import dagger.Component
 import javax.inject.Singleton
 

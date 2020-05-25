@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.dagger.data
+package com.hoony.kotlinsample.dagger.example1.data
 
 class Cat {
     private val catName = "RegDoll"

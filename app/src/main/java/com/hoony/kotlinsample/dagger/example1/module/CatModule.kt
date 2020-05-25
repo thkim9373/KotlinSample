@@ -1,6 +1,6 @@
-package com.hoony.kotlinsample.dagger.module
+package com.hoony.kotlinsample.dagger.example1.module
 
-import com.hoony.kotlinsample.dagger.data.Cat
+import com.hoony.kotlinsample.dagger.example1.data.Cat
 import dagger.Module
 import dagger.Provides
 
