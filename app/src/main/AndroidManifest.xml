@@ -48,6 +48,8 @@
         <activity android:name=".saved_state_view_model.SavedStateViewModelActivity" />
         <activity android:name=".dagger.example1.DaggerActivity" />
         <activity android:name=".dagger.list.DaggerExampleListActivity" />
+        <activity android:name=".rx_java.list.RxJavaExampleListActivity" />
+        <activity android:name=".rx_java.example1.RxJavaExample1Activity" />
 
         <receiver android:name="com.hoony.kotlinsample.memo.broadcast_receiver.AlarmTool" />
     </application>

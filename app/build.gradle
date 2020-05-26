@@ -69,4 +69,7 @@ dependencies {
 
     implementation "com.google.dagger:dagger:$dagger2_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+
+    implementation "io.reactivex:rxandroid:$rx_java_version"
+    implementation "io.reactivex:rxjava:$rx_java_version"
 }

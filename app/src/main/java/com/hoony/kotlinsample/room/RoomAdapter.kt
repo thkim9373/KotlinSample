@@ -12,7 +12,7 @@ class RoomAdapter(private val userList: List<User>) : RecyclerView.Adapter<UserI
         return UserItemHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.item_single_text,
+                R.layout.item_user_name,
                 parent,
                 false
             )

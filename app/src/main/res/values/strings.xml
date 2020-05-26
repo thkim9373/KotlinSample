@@ -30,6 +30,7 @@
         <item>Custom view example</item>
         <item>Saved state view model example</item>
         <item>Dagger examples</item>
+        <item>Rx java examples</item>
     </array>
 
     <array name="content_provider_example_array">
