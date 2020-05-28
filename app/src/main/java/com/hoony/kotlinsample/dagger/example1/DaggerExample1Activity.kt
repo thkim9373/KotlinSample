@@ -14,7 +14,7 @@ import com.hoony.kotlinsample.databinding.ActivityDaggerExample1Binding
 import javax.inject.Inject
 
 // This example from : https://medium.com/@dlgksah/dagger2-kotlin-example-4c90d3d56edc
-class DaggerActivity : AppCompatActivity() {
+class DaggerExample1Activity : AppCompatActivity() {
     private lateinit var binding: ActivityDaggerExample1Binding
 
     // 어노테이션을 사용하여 의존성 객체를 주입한다.

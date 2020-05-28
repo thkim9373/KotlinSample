@@ -1,6 +1,6 @@
 package com.hoony.kotlinsample.dagger.example1.component
 
-import com.hoony.kotlinsample.dagger.example1.DaggerActivity
+import com.hoony.kotlinsample.dagger.example1.DaggerExample1Activity
 import com.hoony.kotlinsample.dagger.example1.module.CatModule
 import com.hoony.kotlinsample.dagger.example1.module.DogModule
 import dagger.Component
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Component(modules = [DogModule::class, CatModule::class])
 interface PetComponent {
 
-    fun inject(daggerActivity: DaggerActivity)
+    fun inject(daggerExample1Activity: DaggerExample1Activity)
 
     @Component.Builder
     interface Builder {
