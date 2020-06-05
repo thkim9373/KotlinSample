@@ -1,6 +1,7 @@
 package com.hoony.kotlinsample.saved_state_view_model
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -12,15 +13,15 @@ import com.hoony.kotlinsample.databinding.ActivitySavedStateViewModelBinding
 // This example from : http://pluu.github.io/blog/android/2020/02/10/saved-state/
 class SavedStateViewModelActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySavedStateViewModelBinding
-    private lateinit var viewModel: SavedStateViewModel
+    private val viewModel: SavedStateViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_saved_state_view_model)
-        viewModel = ViewModelProvider(
-            this,
-            SavedStateViewModelFactory(application, this)
-        ).get(SavedStateViewModel::class.java)
+//        viewModel = ViewModelProvider(
+//            this,
+//            SavedStateViewModelFactory(application, this)
+//        ).get(SavedStateViewModel::class.java)
 
 //        savedInstanceState?.let {
 //            val count = it.getInt("count")
