@@ -31,6 +31,7 @@
         <item>Saved state view model example</item>
         <item>Dagger examples</item>
         <item>Rx java examples</item>
+        <item>UI examples</item>
     </array>
 
     <array name="content_provider_example_array">

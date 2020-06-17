@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpMain"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <androidx.core.widget.NestedScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:descendantFocusability="blocksDescendants"-->
+    <!--            android:id="@+id/llContainer"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <androidx.viewpager2.widget.ViewPager2-->
+    <!--                android:id="@+id/vpMain"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="540dp" />-->
+
+    <!--            <androidx.recyclerview.widget.RecyclerView-->
+    <!--                android:id="@+id/rvList"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="700dp"-->
+    <!--                android:layout_marginTop="-160dp" />-->
+
+    <!--        </LinearLayout>-->
+
+
+    <!--        &lt;!&ndash;        <androidx.constraintlayout.widget.ConstraintLayout&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:id="@+id/clContainer"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:layout_height="540dp"&ndash;&gt;-->
+    <!--        &lt;!&ndash;            android:orientation="vertical">&ndash;&gt;-->
+
+    <!--        &lt;!&ndash;            <androidx.viewpager2.widget.ViewPager2&ndash;&gt;-->
+    <!--        &lt;!&ndash;                android:id="@+id/vpMain"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                android:layout_height="540dp"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+
+    <!--        &lt;!&ndash;            <androidx.recyclerview.widget.RecyclerView&ndash;&gt;-->
+    <!--        &lt;!&ndash;                android:id="@+id/rvList"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                android:clipToPadding="false"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+    <!--        &lt;!&ndash;                app:layout_constraintStart_toStartOf="parent" />&ndash;&gt;-->
+
+    <!--        &lt;!&ndash;        </androidx.constraintlayout.widget.ConstraintLayout>&ndash;&gt;-->
+
+    <!--    </androidx.core.widget.NestedScrollView>-->
+</layout>

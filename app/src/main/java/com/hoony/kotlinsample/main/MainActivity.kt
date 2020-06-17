@@ -14,6 +14,7 @@ import com.hoony.kotlinsample.memo.intro.IntroActivity
 import com.hoony.kotlinsample.room.RoomActivity
 import com.hoony.kotlinsample.rx_java.list.RxJavaExampleListActivity
 import com.hoony.kotlinsample.saved_state_view_model.SavedStateViewModelActivity
+import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.UIActivity1
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +36,8 @@ class MainActivity : AppCompatActivity() {
                     CustomViewActivity::class.java,
                     SavedStateViewModelActivity::class.java,
                     DaggerExampleListActivity::class.java,
-                    RxJavaExampleListActivity::class.java
+                    RxJavaExampleListActivity::class.java,
+                    UIActivity1::class.java
                 ),
                 resources.getStringArray(R.array.main_item_array)
             )

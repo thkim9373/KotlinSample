@@ -51,6 +51,8 @@
         <activity android:name=".rx_java.list.RxJavaExampleListActivity" />
         <activity android:name=".rx_java.example1.RxJavaExample1Activity" />
         <activity android:name=".dagger.example2.DaggerExample2Activity" />
+        <activity android:name=".ui_example.view_pager_with_recycler_view.UIActivity1" />
+        <activity android:name=".ui_example.list.UiListActivity" />
 
         <receiver android:name="com.hoony.kotlinsample.memo.broadcast_receiver.AlarmTool" />
     </application>
