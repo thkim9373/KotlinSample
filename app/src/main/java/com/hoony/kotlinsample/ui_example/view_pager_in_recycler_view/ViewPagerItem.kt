@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view
+package com.hoony.kotlinsample.ui_example.view_pager_in_recycler_view
 
 import android.graphics.Color
 import android.view.View

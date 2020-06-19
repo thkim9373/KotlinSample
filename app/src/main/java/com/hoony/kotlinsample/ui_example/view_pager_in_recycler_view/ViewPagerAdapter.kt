@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view
+package com.hoony.kotlinsample.ui_example.view_pager_in_recycler_view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hoony.kotlinsample.R
 
-class UIViewPagerAdapter : RecyclerView.Adapter<ViewPagerItem>() {
+class ViewPagerAdapter : RecyclerView.Adapter<ViewPagerItem>() {
 
     private val titleList = arrayListOf<String>()
 
@@ -18,11 +18,12 @@ class UIViewPagerAdapter : RecyclerView.Adapter<ViewPagerItem>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerItem {
         return ViewPagerItem(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_single_text_full_size,
-                parent,
-                false
-            )
+            LayoutInflater.from(parent.context)
+                .inflate(
+                    R.layout.item_single_text_full_size,
+                    parent,
+                    false
+                )
         )
     }
 

@@ -8,7 +8,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.databinding.ActivityUiViewPagerWithRecyclerViewBinding
 
-class UIActivity1 : AppCompatActivity() {
+/**
+ *  Nested scroll view example : https://black-jin0427.tistory.com/164
+ */
+class UIExampleActivity1 : AppCompatActivity() {
     private lateinit var binding: ActivityUiViewPagerWithRecyclerViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +35,7 @@ class UIActivity1 : AppCompatActivity() {
     private fun initRecyclerView() {
         binding.rvList.apply {
             layoutManager =
-                GridLayoutManager(this@UIActivity1, 2, GridLayoutManager.VERTICAL, false)
+                GridLayoutManager(this@UIExampleActivity1, 2, GridLayoutManager.VERTICAL, false)
             adapter = UIExample1ListAdapter()
         }
     }

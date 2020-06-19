@@ -8,15 +8,16 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_container"
+        android:id="@+id/clContainer"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:padding="8dp">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
