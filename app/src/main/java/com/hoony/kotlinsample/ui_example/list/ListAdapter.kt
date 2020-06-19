@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hoony.kotlinsample.R
+import com.hoony.kotlinsample.data.TargetData
 
 class ListAdapter(private val itemList: List<TargetData>, private val listener: OnItemClickListener) : RecyclerView.Adapter<ListItem>() {
 

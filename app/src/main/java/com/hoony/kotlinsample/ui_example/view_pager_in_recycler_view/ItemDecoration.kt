@@ -1,10 +1,13 @@
 package com.hoony.kotlinsample.ui_example.view_pager_in_recycler_view
 
+import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class ItemDecoration : RecyclerView.ItemDecoration() {
+class ItemDecoration(context:Context) : RecyclerView.ItemDecoration() {
+
+    private val topPadding: Int = com.hoony.kotlinsample.util.ViewUtil.convertDpToPixel(context, 80f).toInt()
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -12,14 +15,15 @@ class ItemDecoration : RecyclerView.ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        super.getItemOffsets(outRect, view, parent, state)
+//        super.getItemOffsets(outRect, view, parent, state)
 
         val position = parent.getChildAdapterPosition(view)
-        if (position == 0) {
-            outRect.setEmpty()
-        } else {
-            outRect.set(view.paddingLeft, -150, view.paddingRight, view.paddingBottom)
-        }
+        outRect.bottom = -topPadding
+//        if (position == 0) {
+//            outRect.setEmpty()
+//        } else {
+//            outRect.top = -topPadding
+//        }
     }
 
     //    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {

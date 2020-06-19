@@ -23,17 +23,6 @@
     <string name="update">재설정</string>
     <string name="delete">삭제</string>
 
-    <array name="main_item_array">
-        <item>Memo example</item>
-        <item>Room - Live Data example</item>
-        <item>Content provider example</item>
-        <item>Custom view example</item>
-        <item>Saved state view model example</item>
-        <item>Dagger examples</item>
-        <item>Rx java examples</item>
-        <item>UI examples</item>
-    </array>
-
     <array name="content_provider_example_array">
         <item>Contact example</item>
         <item>Album example</item>

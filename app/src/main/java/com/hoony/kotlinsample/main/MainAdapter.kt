@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hoony.kotlinsample.R
+import com.hoony.kotlinsample.data.TargetData
 
 class MainAdapter(
-    private val targetList: Array<Class<*>>,
-    private val titleArray: Array<String>
+    private val targetDataList: List<TargetData>
 ) :
     RecyclerView.Adapter<MainItem>() {
 
@@ -25,17 +25,17 @@ class MainAdapter(
     }
 
     override fun getItemCount(): Int {
-        return titleArray.size
+        return targetDataList.size
     }
 
     override fun onBindViewHolder(holder: MainItem, position: Int) {
         val context = holder.itemView.context
         val binding = holder.binding
         binding.let {
-            binding.tvTitle.text = titleArray[position]
+            binding.tvTitle.text = targetDataList[position].title
             it.clContainer.setOnClickListener {
                 run {
-                    val intent = Intent(context, targetList[position])
+                    val intent = Intent(context, targetDataList[position].targetClass)
                     context.startActivity(intent)
                 }
             }

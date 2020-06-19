@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.ui_example.list
+package com.hoony.kotlinsample.data
 
 data class TargetData(
     val targetClass: Class<*>,

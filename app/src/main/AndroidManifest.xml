@@ -54,6 +54,7 @@
         <activity android:name=".ui_example.view_pager_with_recycler_view.UIExampleActivity1" />
         <activity android:name=".ui_example.list.UiListActivity" />
         <activity android:name=".ui_example.view_pager_in_recycler_view.UIExample2Activity" />
+        <activity android:name=".sticky_item_decoration.StickyItemDecorationActivity" />
 
         <receiver android:name="com.hoony.kotlinsample.memo.broadcast_receiver.AlarmTool" />
     </application>

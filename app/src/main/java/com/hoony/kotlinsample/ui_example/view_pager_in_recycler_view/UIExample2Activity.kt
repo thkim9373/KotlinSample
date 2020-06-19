@@ -17,8 +17,8 @@ class UIExample2Activity : AppCompatActivity() {
 
     private fun initRecyclerView() {
 //        rvList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rvList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rvList.addItemDecoration(ItemDecoration())
+        rvList.addItemDecoration(ItemDecoration(this))
+        rvList.layoutManager = LinearLayoutManager(this)
         rvList.adapter = RecyclerViewAdapter()
     }
 }
