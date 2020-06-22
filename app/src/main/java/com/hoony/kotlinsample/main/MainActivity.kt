@@ -17,10 +17,10 @@ import com.hoony.kotlinsample.rx_java.list.RxJavaExampleListActivity
 import com.hoony.kotlinsample.saved_state_view_model.SavedStateViewModelActivity
 import com.hoony.kotlinsample.sticky_item_decoration.StickyItemDecorationActivity
 import com.hoony.kotlinsample.ui_example.list.UiListActivity
+import com.hoony.kotlinsample.util.abstract_class.list.AbsListActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AbsListActivity() {
 
-    private var binding: ActivityMainBinding? = null
     private val targetList: List<TargetData> = arrayListOf(
         TargetData(IntroActivity::class.java, "Memo example"),
         TargetData(RoomActivity::class.java, "Room - Live Data example"),
@@ -30,18 +30,11 @@ class MainActivity : AppCompatActivity() {
         TargetData(DaggerExampleListActivity::class.java, "Dagger examples"),
         TargetData(RxJavaExampleListActivity::class.java, "Rx java examples"),
         TargetData(UiListActivity::class.java, "UI examples"),
-        TargetData(StickyItemDecorationActivity::class.java, "Sticky item decoration example")
+        TargetData(StickyItemDecorationActivity::class.java, "Sticky item decoration example"),
+        TargetData(com.hoony.kotlinsample.behavior.list.ListActivity::class.java, "Behavior example")
     )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        binding?.let {
-            it.rvList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-            it.rvList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-
-            it.rvList.adapter = MainAdapter(targetList)
-        }
+    override fun getTargetDataList(): List<TargetData> {
+        return targetList
     }
 }
