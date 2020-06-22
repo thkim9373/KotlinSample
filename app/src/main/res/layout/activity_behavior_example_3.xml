@@ -21,6 +21,6 @@
         android:text="Bottom text view"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_behavior=".behavior.scroll_example.ScrollBehavior" />
+        app:layout_behavior=".behavior.scroll_example_1.ScrollBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

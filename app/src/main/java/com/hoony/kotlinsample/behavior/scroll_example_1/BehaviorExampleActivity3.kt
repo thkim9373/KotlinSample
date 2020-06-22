@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.behavior.scroll_example
+package com.hoony.kotlinsample.behavior.scroll_example_1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

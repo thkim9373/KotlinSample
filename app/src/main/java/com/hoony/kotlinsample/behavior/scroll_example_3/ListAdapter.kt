@@ -1,5 +1,6 @@
-package com.hoony.kotlinsample.behavior.scroll_example
+package com.hoony.kotlinsample.behavior.scroll_example_3
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -33,5 +34,6 @@ class ListAdapter : RecyclerView.Adapter<ItemViewHolder>() {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(titleList[position])
+        Log.d("ListAdapter", "onBindViewHolder : $position")
     }
 }

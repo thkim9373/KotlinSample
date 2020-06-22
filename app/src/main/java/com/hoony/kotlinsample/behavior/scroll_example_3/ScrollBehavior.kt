@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.behavior.scroll_example
+package com.hoony.kotlinsample.behavior.scroll_example_3
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
+import kotlin.math.max
 
 class ScrollBehavior(context: Context, attrs: AttributeSet) :
     CoordinatorLayout.Behavior<View>(context, attrs) {
@@ -36,25 +37,7 @@ class ScrollBehavior(context: Context, attrs: AttributeSet) :
         consumed: IntArray,
         type: Int
     ) {
-//        Log.d(
-//            "onStartNestedScroll",
-//            "onNestedPreScroll : $dy"
-//        )
-//        // 스크롤이 반대 방향으로 전환
-//        if ((dy > 0 && dyDirectionSum < 0) ||
-//            (dy < 0 && dyDirectionSum > 0)
-//        ) {
-//            child.animate().cancel()
-//            dyDirectionSum = 0
-//        }
-//
-//        dyDirectionSum += dy
-//
-//        if (dyDirectionSum > child.height) {
-//
-//        } else {
-//
-//        }
+
     }
 
     override fun onNestedScroll(
@@ -68,16 +51,17 @@ class ScrollBehavior(context: Context, attrs: AttributeSet) :
         type: Int,
         consumed: IntArray
     ) {
-        dyDirectionSum += dyConsumed
+        dyDirectionSum -= dyConsumed
 
-        if (dyDirectionSum > child.height) dyDirectionSum = child.height
-        if (dyDirectionSum <= 0) dyDirectionSum = 0
+//        if (dyDirectionSum <= child.height) dyDirectionSum = child.height
+//        if (dyDirectionSum > 0) dyDirectionSum = 0
 
         Log.d(
             "onNestedScroll",
-            "dyConsumed : $dyConsumed    dyDirectionSum: $dyDirectionSum"
+            "dyConsumed : $dyConsumed    dyDirectionSum: $dyDirectionSum     -child.height: ${-child.height}"
         )
 
         child.translationY = dyDirectionSum.toFloat()
+        target.translationY = max(dyDirectionSum, -child.height).toFloat()
     }
 }

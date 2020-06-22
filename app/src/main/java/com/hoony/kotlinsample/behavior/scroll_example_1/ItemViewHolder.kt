@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.behavior.scroll_example
+package com.hoony.kotlinsample.behavior.scroll_example_1
 
 import androidx.recyclerview.widget.RecyclerView
 import com.hoony.kotlinsample.databinding.ItemSingleTextBinding
