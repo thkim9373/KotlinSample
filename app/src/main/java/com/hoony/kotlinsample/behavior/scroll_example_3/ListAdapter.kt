@@ -34,6 +34,5 @@ class ListAdapter : RecyclerView.Adapter<ItemViewHolder>() {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(titleList[position])
-        Log.d("ListAdapter", "onBindViewHolder : $position")
     }
 }

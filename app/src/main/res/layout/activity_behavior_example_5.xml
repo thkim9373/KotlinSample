@@ -13,7 +13,7 @@
             android:id="@+id/vpMain"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            app:layout_behavior=".behavior.scroll_example_3.ScrollBehavior" />
+            app:layout_behavior=".behavior.scroll_example_3.ViewPagerBehavior" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvList"
