@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.util.abstract_class.list
+package com.hoony.kotlinsample.util.abstract_class.list_activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,9 +10,6 @@ import com.hoony.kotlinsample.data.TargetData
 import kotlinx.android.synthetic.main.activity_single_list.*
 
 abstract class AbsListActivity : AppCompatActivity(), ListAdapter.OnItemClickListener {
-
-    abstract fun getTargetDataList(): List<TargetData>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single_list)
@@ -21,14 +18,8 @@ abstract class AbsListActivity : AppCompatActivity(), ListAdapter.OnItemClickLis
 
     private fun initRecyclerView() {
         rvList.apply {
-            layoutManager =
-                LinearLayoutManager(this@AbsListActivity, LinearLayoutManager.VERTICAL, false)
-            addItemDecoration(
-                DividerItemDecoration(
-                    this@AbsListActivity,
-                    DividerItemDecoration.VERTICAL
-                )
-            )
+            layoutManager = LinearLayoutManager(this@AbsListActivity, LinearLayoutManager.VERTICAL, false)
+            addItemDecoration(DividerItemDecoration(this@AbsListActivity, DividerItemDecoration.VERTICAL))
             adapter = ListAdapter(getTargetDataList(), this@AbsListActivity)
         }
     }
@@ -37,4 +28,6 @@ abstract class AbsListActivity : AppCompatActivity(), ListAdapter.OnItemClickLis
         val intent = Intent(this, getTargetDataList()[position].targetClass)
         startActivity(intent)
     }
+
+    abstract fun getTargetDataList(): List<TargetData>
 }

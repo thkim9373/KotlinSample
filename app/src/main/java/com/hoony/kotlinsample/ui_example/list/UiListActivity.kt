@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.data.TargetData
+import com.hoony.kotlinsample.ui_example.collapsing_toolbar_layout.UIExampleActivity3
 import com.hoony.kotlinsample.ui_example.view_pager_in_recycler_view.UIExample2Activity
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.UIExampleActivity1
 import kotlinx.android.synthetic.main.activity_ui_example.*
@@ -21,6 +22,10 @@ class UiListActivity : AppCompatActivity(), ListAdapter.OnItemClickListener {
         TargetData(
             UIExample2Activity::class.java,
             "View pager in recycler view"
+        ),
+        TargetData(
+            UIExampleActivity3::class.java,
+            "Collapsing app bar layout"
         )
     )
 
