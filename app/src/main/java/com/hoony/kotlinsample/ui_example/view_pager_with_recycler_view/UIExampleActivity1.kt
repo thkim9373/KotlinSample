@@ -5,41 +5,36 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.hoony.kotlinsample.R
-import com.hoony.kotlinsample.databinding.ActivityUiViewPagerWithRecyclerViewBinding
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.observable_recycler_view.ObservableScrollViewCallbacks
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.observable_recycler_view.ScrollState
+import kotlinx.android.synthetic.main.activity_ui_view_pager_with_recycler_view.*
 
 /**
  *  Nested scroll view example : https://black-jin0427.tistory.com/164
  */
 class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks {
-    private lateinit var binding: ActivityUiViewPagerWithRecyclerViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding =
-            DataBindingUtil.setContentView(this, R.layout.activity_ui_view_pager_with_recycler_view)
+        setContentView(R.layout.activity_ui_view_pager_with_recycler_view)
 
         initViewPager()
         initRecyclerView()
     }
 
-    fun viewPager() = binding.vpMain
-
     private fun initViewPager() {
-        binding.vpMain.apply {
+        vpMain.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             adapter = UIViewPagerAdapter()
 
-                        setOnTouchListener(object : View.OnTouchListener {
+            setOnTouchListener(object : View.OnTouchListener {
                 override fun onTouch(v: View?, event: MotionEvent?): Boolean {
 
-                    when(event?.action) {
+                    when (event?.action) {
                         MotionEvent.ACTION_DOWN -> {
                             Log.d("touch", "view pager - ACTION_DOWN")
                         }
@@ -58,9 +53,15 @@ class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks {
     }
 
     private fun initRecyclerView() {
-        binding.rvList.apply {
-            layoutManager = LinearLayoutManager(this@UIExampleActivity1, LinearLayoutManager.VERTICAL, false)
-            addItemDecoration(DividerItemDecoration(this@UIExampleActivity1, DividerItemDecoration.VERTICAL))
+        rvList.apply {
+            layoutManager =
+                LinearLayoutManager(this@UIExampleActivity1, LinearLayoutManager.VERTICAL, false)
+            addItemDecoration(
+                DividerItemDecoration(
+                    this@UIExampleActivity1,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
             adapter = RecyclerViewAdapter()
 
 //            setOnTouchListener(object : View.OnTouchListener {
@@ -83,8 +84,6 @@ class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks {
 //            })
 
             addScrollViewCallbacks(this@UIExampleActivity1)
-
-            setViewPager2(binding.vpMain)
         }
     }
 

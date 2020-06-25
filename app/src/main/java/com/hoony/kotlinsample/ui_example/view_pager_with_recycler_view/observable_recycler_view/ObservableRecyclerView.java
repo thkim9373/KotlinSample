@@ -24,12 +24,12 @@ import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
+
+import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.ScrollableConstraintLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -215,18 +215,13 @@ public class ObservableRecyclerView extends RecyclerView implements Scrollable {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-
-        Log.d("touch", "recycler view - onInterceptTouchEvent    isHorizontalScroll : " + isHorizontalScroll + "    isVerticalScroll : " + isVerticalScroll);
-
         if (hasNoCallbacks()) {
             Log.d("touch", "recycler view - onInterceptTouchEvent : hasNoCallbacks");
             return super.onInterceptTouchEvent(ev);
         }
-        switch (ev.getActionMasked()) {
+        switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.d("touch", "recycler view - onInterceptTouchEvent : ACTION_DOWN");
-                startX = ev.getX();
-                startY = ev.getY();
                 // Whether or not motion events are consumed by children,
                 // flag initializations which are related to ACTION_DOWN events should be executed.
                 // Because if the ACTION_DOWN is consumed by children and only ACTION_MOVEs are
@@ -245,71 +240,19 @@ public class ObservableRecyclerView extends RecyclerView implements Scrollable {
         return result;
     }
 
-    private float startX = 0;
-    private float startY = 0;
-    private float touchSlop = -1;
-    private boolean isHorizontalScroll = false;
-    private boolean isVerticalScroll = false;
-    private ViewPager2 viewPager2;
-
-    public void setViewPager2(ViewPager2 viewPager2) {
-        this.viewPager2 = viewPager2;
-    }
-
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
 
 //        Log.d("touch", "recycler view - onTouchEvent result : " + false);
 //        return false;
 
-
-        if (hasNoCallbacks()) {
-            boolean result = super.onTouchEvent(ev);
-            Log.d("touch", "recycler view - onTouchEvent result : " + result);
-            return result;
-        }
-
-        if (touchSlop == -1) {
-            touchSlop = ViewConfiguration.get(this.getContext()).getScaledTouchSlop();
-        }
-
-        switch (ev.getActionMasked()) {
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                isHorizontalScroll = false;
-                isVerticalScroll = false;
-                Log.d("touch", "recycler view - onTouchEvent : ACTION_UP");
-                break;
-        }
-
-        if (isHorizontalScroll) {
-            Log.d("touch", "recycler view - onTouchEvent result : " + false);
+        if (((ScrollableConstraintLayout) getParent()).getOrientation() == ScrollableConstraintLayout.HORIZONTAL) {
+            Log.d("touch", "recycler view - onTouchEvent orientation is horizontal");
             return false;
         }
 
-        if (!isHorizontalScroll && !isVerticalScroll) {
-            switch (ev.getActionMasked()) {
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    isHorizontalScroll = false;
-                    isVerticalScroll = false;
-                    Log.d("touch", "recycler view - onTouchEvent : ACTION_UP");
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    isHorizontalScroll = Math.abs(ev.getX() - startX) > touchSlop;
-                    if (isHorizontalScroll) {
-                        Log.d("touch", "recycler view - isHorizontalScroll true");
-                        break;
-                    }
-                    isVerticalScroll = Math.abs(ev.getY() - startY) > touchSlop;
-                    if (isVerticalScroll) {
-                        Log.d("touch", "recycler view - isVerticalScroll true");
-                        break;
-                    }
-                    break;
-            }
-
-            boolean result = true;
+        if (hasNoCallbacks()) {
+            boolean result = super.onTouchEvent(ev);
             Log.d("touch", "recycler view - onTouchEvent result : " + result);
             return result;
         }
@@ -320,9 +263,6 @@ public class ObservableRecyclerView extends RecyclerView implements Scrollable {
                 mIntercepted = false;
                 mDragging = false;
                 dispatchOnUpOrCancelMotionEvent(mScrollState);
-
-                isHorizontalScroll = false;
-                isVerticalScroll = false;
                 Log.d("touch", "recycler view - onTouchEvent : ACTION_UP");
                 break;
             case MotionEvent.ACTION_MOVE:
