@@ -28,7 +28,7 @@ class ViewPagerBehavior(context: Context, attrs: AttributeSet) :
     private var lastMotionY: Float = 0f
     private var startFlingY: Float = 0f
     private var velocityTracker: VelocityTracker? = null
-    private var overScroller: OverScroller = OverScroller(context)
+    private var overScroller: OverScroller? = null
     private var flingRunnable: FlingRunnable? = null
 
     override fun onStartNestedScroll(
@@ -70,6 +70,11 @@ class ViewPagerBehavior(context: Context, attrs: AttributeSet) :
         // View pager 이동
 
         scroll(coordinatorLayout, child)
+
+        if (dyUnconsumed != 0) {
+            lastMotionY = -30000f
+            fling(coordinatorLayout, child, 0, 0, -dyUnconsumed.toFloat())
+        }
 //        target.translationY = max(dyDirectionSum, -child.height).toFloat()
     }
 
@@ -196,8 +201,10 @@ class ViewPagerBehavior(context: Context, attrs: AttributeSet) :
         Log.d("fling", "start fling")
         Log.d("fling", "lastMotionY : $lastMotionY    velocityY : $velocityY")
 
+        if (overScroller == null) overScroller = OverScroller(coordinatorLayout.context)
+
         startFlingY = lastMotionY
-        overScroller.fling(
+        overScroller?.fling(
             0,
             lastMotionY.toInt(),
             0,
@@ -208,11 +215,13 @@ class ViewPagerBehavior(context: Context, attrs: AttributeSet) :
             10000
         )
 
-        if (overScroller.computeScrollOffset()) {
+        if (overScroller?.computeScrollOffset() == true) {
+            Log.d("fling", "overScroller?.computeScrollOffset() == true")
             flingRunnable = FlingRunnable(coordinatorLayout, view)
             ViewCompat.postOnAnimation(view, flingRunnable)
             return true
         } else {
+            Log.d("fling", "overScroller?.computeScrollOffset() != true")
             return false
         }
     }
@@ -223,27 +232,40 @@ class ViewPagerBehavior(context: Context, attrs: AttributeSet) :
     ) : Runnable {
 
         override fun run() {
-            val changeY = (overScroller.currY - startFlingY).toInt()
-            if (overScroller.computeScrollOffset()) {
-                if(getRecyclerViewTopMargin() > 0) {
-                    dyDirectionSum += (overScroller.currY - startFlingY).toInt()
-                    Log.d(
-                        "fling",
-                        "(startFlingY - overScroller.currY).toInt() : ${(startFlingY - overScroller.currY).toInt()}"
-                    )
-                    startFlingY = overScroller.currY.toFloat()
+            if (overScroller?.computeScrollOffset() == true && overScroller != null) {
+                val changeY = (overScroller?.currY?.minus(startFlingY))?.toInt() ?: 0
+                val finalY = overScroller?.finalY ?: 0
+                val currY = overScroller?.currY ?: 0
+                val velocityY = overScroller?.currVelocity?.toInt() ?: 0
+                val isScrollUp: Boolean = finalY - currY > 0
+
+                Log.d("fling", "velocityY : $velocityY")
+                Log.d("fling", "changeY : $changeY")
+                Log.d(
+                    "fling",
+                    "overScroller.currY : $currY      overScroller.finalY : $finalY"
+                )
+
+                if (getRecyclerViewTopMargin() > 0 || isScrollUp) {
+                    dyDirectionSum += changeY
+
+
+                    startFlingY = currY.toFloat()
                     dyDirectionSum = min(0, dyDirectionSum)
                     Log.d("fling", "dyDirectionSum : $dyDirectionSum")
-                    Log.d(
-                        "fling",
-                        "overScroller.currY : ${overScroller.currY}      overScroller.finalY : ${overScroller.finalY}"
-                    )
+
                     scroll(parent, view)
+                    ViewCompat.postOnAnimation(parent, this)
                 } else {
+//                    parent.rvList.scrollTo(0, )
+
+                    parent.rvList.fling(0, velocityY)
+                    Log.d("fling", "velocityY : $velocityY")
+
 //                    parent.rvList.scrollY = changeY
 //                    onNestedScroll(parent, view, parent.rvList, 0, changeY, 0, 0, 0, intArrayOf())
                 }
-                ViewCompat.postOnAnimation(parent, this)
+
             }
         }
     }

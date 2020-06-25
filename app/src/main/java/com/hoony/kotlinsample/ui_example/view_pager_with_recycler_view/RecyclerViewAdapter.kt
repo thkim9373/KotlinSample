@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hoony.kotlinsample.R
 
-class UIExample1ListAdapter : RecyclerView.Adapter<UIExample1ListViewHolder>() {
+class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerVIewItemViewHolder>() {
 
     private val titleList = arrayListOf<String>()
 
@@ -16,8 +16,8 @@ class UIExample1ListAdapter : RecyclerView.Adapter<UIExample1ListViewHolder>() {
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UIExample1ListViewHolder {
-        return UIExample1ListViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerVIewItemViewHolder {
+        return RecyclerVIewItemViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.item_single_text,
@@ -31,7 +31,7 @@ class UIExample1ListAdapter : RecyclerView.Adapter<UIExample1ListViewHolder>() {
         return titleList.size
     }
 
-    override fun onBindViewHolder(holder: UIExample1ListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerVIewItemViewHolder, position: Int) {
         holder.bind(titleList[position])
     }
 }

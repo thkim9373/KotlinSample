@@ -17,9 +17,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.observable_recycler_view.ObservableRecyclerView
             android:id="@+id/rvList"
             android:layout_width="0dp"
+            android:paddingTop="400dp"
+            android:clipToPadding="false"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
