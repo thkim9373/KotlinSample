@@ -29,6 +29,7 @@
 
     </com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.ScrollableConstraintLayout>
 
+
     <!--    <androidx.core.widget.NestedScrollView-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="match_parent">-->

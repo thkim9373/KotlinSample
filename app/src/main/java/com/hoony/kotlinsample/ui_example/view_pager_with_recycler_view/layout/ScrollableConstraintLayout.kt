@@ -25,11 +25,35 @@ class ScrollableConstraintLayout(
 
     var orientation: Int = NON
     private var scaleSlop: Int = -1
+    private var firstMotionEvent: MotionEvent? = null
     private var startX: Float = 0f
     private var startY: Float = 0f
 
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        when (ev?.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                firstMotionEvent = ev
+            }
+            MotionEvent.ACTION_UP,
+            MotionEvent.ACTION_CANCEL -> {
+//                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_UP or ACTION_CANCEL")
+                orientation = NON
+                firstMotionEvent = null
+            }
+        }
+        if(orientation == NON ||
+            (ev?.actionMasked == MotionEvent.ACTION_UP || ev?.actionMasked == MotionEvent.ACTION_CANCEL)) {
+            Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent return true")
+            onInterceptTouchEvent(ev)
+            return true
+        }
+        val result = super.dispatchTouchEvent(ev)
+        Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent result : $result")
+        return result
+    }
+
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onInterceptTouchEvent")
+//        Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent")
 
         if (scaleSlop == -1) {
             scaleSlop = ViewConfiguration.get(this.context).scaledTouchSlop
@@ -37,74 +61,78 @@ class ScrollableConstraintLayout(
 
         when (ev?.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
-                Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onInterceptTouchEvent ACTION_DOWN")
+//                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_DOWN")
                 startX = ev.x
                 startY = ev.y
             }
             MotionEvent.ACTION_UP,
             MotionEvent.ACTION_CANCEL -> {
-                Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onInterceptTouchEvent ACTION_UP or ACTION_CANCEL")
+//                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_UP or ACTION_CANCEL")
                 orientation = NON
+                firstMotionEvent = null
             }
         }
 
         if (orientation == NON) {
-            Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onInterceptTouchEvent return true")
+            Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent return true")
+            onTouchEvent(ev)
             return true
         }
 
-        Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onInterceptTouchEvent return false")
-        return false
-    }
-
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-
-        return super.dispatchTouchEvent(ev)
+//        Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent return false")
+//        return false
+        val result = super.onInterceptTouchEvent(ev)
+        Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent result : $result")
+        return result
     }
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
-        Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onTouchEvent")
+//        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent")
 
         when (ev?.actionMasked) {
             MotionEvent.ACTION_UP,
             MotionEvent.ACTION_CANCEL -> {
-                Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onTouchEvent ACTION_UP or ACTION_CANCEL")
+//                Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent ACTION_UP or ACTION_CANCEL")
                 orientation = NON
+                firstMotionEvent = null
             }
         }
 
         if(orientation == NON) {
             when (ev?.actionMasked) {
                 MotionEvent.ACTION_MOVE -> {
-                    Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onTouchEvent ACTION_MOVE")
+//                    Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent ACTION_MOVE")
                     if (abs(ev.x - startX) > scaleSlop) {
-                        Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onTouchEvent HORIZONTAL")
+                        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent HORIZONTAL")
                         orientation = HORIZONTAL
-                        Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onTouchEvent return false")
                         ev.action = MotionEvent.ACTION_DOWN
-                        onTouchEvent(ev)
-                        return false
+                        dispatchTouchEvent(firstMotionEvent)
+                        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
+                        return true
                     }
                     if (abs(ev.y - startY) > scaleSlop) {
-                        Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onTouchEvent VERTICAL")
+                        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent VERTICAL")
                         orientation = VERTICAL
-                        Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onTouchEvent return false")
                         ev.action = MotionEvent.ACTION_DOWN
-                        onTouchEvent(ev)
-                        return false
+                        dispatchTouchEvent(firstMotionEvent)
+                        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
+                        return true
                     }
                 }
                 MotionEvent.ACTION_UP,
                 MotionEvent.ACTION_CANCEL -> {
-                    Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onTouchEvent ACTION_UP or ACTION_CANCEL")
+//                    Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent ACTION_UP or ACTION_CANCEL")
                     orientation = NON
                 }
             }
-        } else {
-            onTouchEvent(ev)
-            return false
+            Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
+            return true
         }
-        Log.d(Tag.TAG_TOUCH, "ScrollableConstraintLayout onTouchEvent return true")
-        return true
+//        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
+//        return true
+
+        val result = super.onTouchEvent(ev)
+        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent result : $result")
+        return result
     }
 }
