@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.ScrollableConstraintLayout
+    <com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.OrientationConstraintLayout
         android:id="@+id/clContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.ScrollableConstraintLayout>
+    </com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.OrientationConstraintLayout>
 
 
     <!--    <androidx.core.widget.NestedScrollView-->

@@ -7,9 +7,10 @@ import android.view.MotionEvent
 import android.view.ViewConfiguration
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.hoony.kotlinsample.util.Tag
+import java.util.*
 import kotlin.math.abs
 
-class ScrollableConstraintLayout(
+class OrientationConstraintLayout(
     context: Context,
     attrs: AttributeSet?,
     int: Int
@@ -17,15 +18,30 @@ class ScrollableConstraintLayout(
     constructor(context: Context, attrs: AttributeSet) : this(context, attrs, 0)
     constructor(context: Context) : this(context, null, 0)
 
-    companion object {
-        const val NON = -1
-        const val VERTICAL = 0
-        const val HORIZONTAL = 1
+    enum class Orientation {
+        NON, VERTICAL, HORIZONTAL
     }
 
-    var orientation: Int = NON
+    interface OnPreTouchListener {
+        fun onActionDown(ev: MotionEvent)
+    }
+
+    fun addListener(listener: OnPreTouchListener) {
+        listenerList.add(listener)
+    }
+
+    private fun onActionDown(ev: MotionEvent) {
+        for (listener in listenerList) {
+            listener.onActionDown(ev)
+        }
+    }
+
+    private var listenerList: MutableList<OnPreTouchListener> = arrayListOf()
+
+    var orientation: Orientation = Orientation.NON
     private var scaleSlop: Int = -1
     private var firstMotionEvent: MotionEvent? = null
+    private val motionQueue: Queue<MotionEvent> = LinkedList()
     private var startX: Float = 0f
     private var startY: Float = 0f
 
@@ -33,16 +49,19 @@ class ScrollableConstraintLayout(
         when (ev?.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 firstMotionEvent = ev
+                onActionDown(ev)
             }
             MotionEvent.ACTION_UP,
             MotionEvent.ACTION_CANCEL -> {
 //                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_UP or ACTION_CANCEL")
-                orientation = NON
+                orientation = Orientation.NON
                 firstMotionEvent = null
+                val result = super.dispatchTouchEvent(ev)
+                Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent result : $result")
+                return result
             }
         }
-        if(orientation == NON ||
-            (ev?.actionMasked == MotionEvent.ACTION_UP || ev?.actionMasked == MotionEvent.ACTION_CANCEL)) {
+        if (orientation == Orientation.NON) {
             Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent return true")
             onInterceptTouchEvent(ev)
             return true
@@ -68,12 +87,12 @@ class ScrollableConstraintLayout(
             MotionEvent.ACTION_UP,
             MotionEvent.ACTION_CANCEL -> {
 //                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_UP or ACTION_CANCEL")
-                orientation = NON
+                orientation = Orientation.NON
                 firstMotionEvent = null
             }
         }
 
-        if (orientation == NON) {
+        if (orientation == Orientation.NON) {
             Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent return true")
             onTouchEvent(ev)
             return true
@@ -93,26 +112,26 @@ class ScrollableConstraintLayout(
             MotionEvent.ACTION_UP,
             MotionEvent.ACTION_CANCEL -> {
 //                Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent ACTION_UP or ACTION_CANCEL")
-                orientation = NON
+                orientation = Orientation.NON
                 firstMotionEvent = null
             }
         }
 
-        if(orientation == NON) {
+        if (orientation == Orientation.NON) {
             when (ev?.actionMasked) {
                 MotionEvent.ACTION_MOVE -> {
 //                    Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent ACTION_MOVE")
-                    if (abs(ev.x - startX) > scaleSlop) {
-                        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent HORIZONTAL")
-                        orientation = HORIZONTAL
+                    if (isScrollVertical(ev)) {
+                        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent VERTICAL")
+                        orientation = Orientation.VERTICAL
                         ev.action = MotionEvent.ACTION_DOWN
                         dispatchTouchEvent(firstMotionEvent)
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
                         return true
                     }
-                    if (abs(ev.y - startY) > scaleSlop) {
-                        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent VERTICAL")
-                        orientation = VERTICAL
+                    if (isScrollHorizontal(ev)) {
+                        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent HORIZONTAL")
+                        orientation = Orientation.HORIZONTAL
                         ev.action = MotionEvent.ACTION_DOWN
                         dispatchTouchEvent(firstMotionEvent)
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
@@ -122,7 +141,7 @@ class ScrollableConstraintLayout(
                 MotionEvent.ACTION_UP,
                 MotionEvent.ACTION_CANCEL -> {
 //                    Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent ACTION_UP or ACTION_CANCEL")
-                    orientation = NON
+                    orientation = Orientation.NON
                 }
             }
             Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
@@ -134,5 +153,13 @@ class ScrollableConstraintLayout(
         val result = super.onTouchEvent(ev)
         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent result : $result")
         return result
+    }
+
+    private fun isScrollVertical(ev: MotionEvent): Boolean {
+        return abs(ev.y - startY) > scaleSlop
+    }
+
+    private fun isScrollHorizontal(ev: MotionEvent): Boolean {
+        return abs(ev.x - startX) > scaleSlop
     }
 }

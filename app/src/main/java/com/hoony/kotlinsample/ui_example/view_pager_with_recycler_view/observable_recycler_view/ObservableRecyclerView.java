@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.ScrollableConstraintLayout;
+import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.OrientationConstraintLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -246,7 +246,8 @@ public class ObservableRecyclerView extends RecyclerView implements Scrollable {
 //        Log.d("touch", "recycler view - onTouchEvent result : " + false);
 //        return false;
 
-        if (((ScrollableConstraintLayout) getParent()).getOrientation() == ScrollableConstraintLayout.HORIZONTAL) {
+        if ((((OrientationConstraintLayout) getParent()).getOrientation() == OrientationConstraintLayout.Orientation.HORIZONTAL) &&
+                !(ev.getActionMasked() == MotionEvent.ACTION_UP || ev.getActionMasked() == MotionEvent.ACTION_CANCEL)) {
             Log.d("touch", "recycler view - onTouchEvent orientation is horizontal");
             return false;
         }
@@ -260,12 +261,13 @@ public class ObservableRecyclerView extends RecyclerView implements Scrollable {
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                Log.d("touch", "recycler view - onTouchEvent : ACTION_UP");
                 mIntercepted = false;
                 mDragging = false;
                 dispatchOnUpOrCancelMotionEvent(mScrollState);
-                Log.d("touch", "recycler view - onTouchEvent : ACTION_UP");
                 break;
             case MotionEvent.ACTION_MOVE:
+                Log.d("touch", "recycler view - onTouchEvent : ACTION_MOVE");
                 if (mPrevMoveEvent == null) {
                     mPrevMoveEvent = ev;
                 }

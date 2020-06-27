@@ -9,14 +9,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.hoony.kotlinsample.R
+import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.OrientationConstraintLayout
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.observable_recycler_view.ObservableScrollViewCallbacks
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.observable_recycler_view.ScrollState
 import kotlinx.android.synthetic.main.activity_ui_view_pager_with_recycler_view.*
 
 /**
- *  Nested scroll view example : https://black-jin0427.tistory.com/164
+ * View pager 상단에 Recycler view 를 배치하여 동작하는 예제
  */
-class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks {
+class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks,
+    OrientationConstraintLayout.OnPreTouchListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,7 @@ class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks {
 
         initViewPager()
         initRecyclerView()
+        initListener()
     }
 
     private fun initViewPager() {
@@ -87,15 +90,23 @@ class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks {
         }
     }
 
+    private fun initListener() {
+        clContainer.addListener(this)
+    }
+
     override fun onUpOrCancelMotionEvent(scrollState: ScrollState?) {
 
     }
 
     override fun onScrollChanged(scrollY: Int, firstScroll: Boolean, dragging: Boolean) {
-
+        vpMain.translationY = (-scrollY).toFloat()
     }
 
     override fun onDownMotionEvent() {
 
+    }
+
+    override fun onActionDown(ev: MotionEvent) {
+        rvList.stopScroll()
     }
 }
