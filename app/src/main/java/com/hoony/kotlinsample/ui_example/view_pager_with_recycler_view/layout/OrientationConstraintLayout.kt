@@ -22,7 +22,14 @@ class OrientationConstraintLayout(
         NON, VERTICAL, HORIZONTAL
     }
 
+    /**
+     * 해당 뷰 그룹에서 orientation 을 결정하는 중에 touch event 수신을 알아야할 경우 사용하는 interface.
+     */
     interface OnPreTouchListener {
+        /**
+         * ACTION_DOWN 이 발생했을 때 호출
+         * @param ev ACTION_DOWN 일 때 들어온 motion event.
+         */
         fun onActionDown(ev: MotionEvent)
     }
 
@@ -38,8 +45,9 @@ class OrientationConstraintLayout(
 
     private var listenerList: MutableList<OnPreTouchListener> = arrayListOf()
 
-    var orientation: Orientation = Orientation.NON
-    private var scaleSlop: Int = -1
+    var orientation: Orientation = Orientation.NON  // 사용자의 터치 방향
+    var isExporting: Boolean = false
+    private var scaleSlop: Int = -1 // 유저 액션이 스크롤 중인지 판단할 때 사용하는 거리
     private var firstMotionEvent: MotionEvent? = null
     private val motionQueue: Queue<MotionEvent> = LinkedList()
     private var startX: Float = 0f
@@ -48,23 +56,51 @@ class OrientationConstraintLayout(
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         when (ev?.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
-                firstMotionEvent = ev
-                onActionDown(ev)
+                if (orientation == Orientation.NON) {
+                    firstMotionEvent = ev
+                    Log.d(Tag.TAG_TOUCH, "add down action")
+//                    motionQueue.add(ev)
+                    addQueuePrintLog(ev)
+                    onActionDown(ev)
+
+                    Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent return true")
+                    onInterceptTouchEvent(ev)
+                    return true
+                }
+            }
+            MotionEvent.ACTION_MOVE -> {
+                if (orientation == Orientation.NON) {
+//                    motionQueue.add(ev)
+                    addQueuePrintLog(ev)
+                    Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent return true")
+                    onInterceptTouchEvent(ev)
+                    return true
+                }
             }
             MotionEvent.ACTION_UP,
             MotionEvent.ACTION_CANCEL -> {
 //                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_UP or ACTION_CANCEL")
+
+                dispatchSavedMotionEvents()
+
+//                if (orientation == Orientation.NON && firstMotionEvent != null) {
+//                    Log.d(Tag.TAG_CLICK, "")
+//                    super.dispatchTouchEvent(firstMotionEvent)
+//                }
+
+//                if(firstMotionEvent != null) {
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                        performContextClick(firstMotionEvent!!.x, firstMotionEvent!!.y)
+//                    }
+//                }
+
+                val result = super.dispatchTouchEvent(ev)
+
                 orientation = Orientation.NON
                 firstMotionEvent = null
-                val result = super.dispatchTouchEvent(ev)
                 Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent result : $result")
                 return result
             }
-        }
-        if (orientation == Orientation.NON) {
-            Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent return true")
-            onInterceptTouchEvent(ev)
-            return true
         }
         val result = super.dispatchTouchEvent(ev)
         Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent result : $result")
@@ -78,21 +114,22 @@ class OrientationConstraintLayout(
             scaleSlop = ViewConfiguration.get(this.context).scaledTouchSlop
         }
 
-        when (ev?.actionMasked) {
-            MotionEvent.ACTION_DOWN -> {
-//                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_DOWN")
-                startX = ev.x
-                startY = ev.y
-            }
-            MotionEvent.ACTION_UP,
-            MotionEvent.ACTION_CANCEL -> {
-//                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_UP or ACTION_CANCEL")
-                orientation = Orientation.NON
-                firstMotionEvent = null
-            }
-        }
-
         if (orientation == Orientation.NON) {
+            when (ev?.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+//                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_DOWN")
+
+                    startX = ev.x
+                    startY = ev.y
+                }
+//            MotionEvent.ACTION_UP,
+//            MotionEvent.ACTION_CANCEL -> {
+////                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_UP or ACTION_CANCEL")
+//                orientation = Orientation.NON
+//                firstMotionEvent = null
+//            }
+            }
+
             Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent return true")
             onTouchEvent(ev)
             return true
@@ -106,53 +143,60 @@ class OrientationConstraintLayout(
     }
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
-//        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent")
-
-        when (ev?.actionMasked) {
-            MotionEvent.ACTION_UP,
-            MotionEvent.ACTION_CANCEL -> {
-//                Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent ACTION_UP or ACTION_CANCEL")
-                orientation = Orientation.NON
-                firstMotionEvent = null
-            }
-        }
-
         if (orientation == Orientation.NON) {
             when (ev?.actionMasked) {
                 MotionEvent.ACTION_MOVE -> {
-//                    Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent ACTION_MOVE")
                     if (isScrollVertical(ev)) {
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent VERTICAL")
                         orientation = Orientation.VERTICAL
-                        ev.action = MotionEvent.ACTION_DOWN
-                        dispatchTouchEvent(firstMotionEvent)
+                        dispatchSavedMotionEvents()
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
                         return true
                     }
                     if (isScrollHorizontal(ev)) {
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent HORIZONTAL")
                         orientation = Orientation.HORIZONTAL
-                        ev.action = MotionEvent.ACTION_DOWN
-                        dispatchTouchEvent(firstMotionEvent)
+                        dispatchSavedMotionEvents()
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
                         return true
                     }
                 }
                 MotionEvent.ACTION_UP,
                 MotionEvent.ACTION_CANCEL -> {
-//                    Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent ACTION_UP or ACTION_CANCEL")
                     orientation = Orientation.NON
                 }
             }
             Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
             return true
         }
-//        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
-//        return true
 
         val result = super.onTouchEvent(ev)
         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent result : $result")
         return result
+    }
+
+    private fun addQueuePrintLog(ev: MotionEvent) {
+        val cloneEv = MotionEvent.obtainNoHistory(ev)
+        motionQueue.add(cloneEv)
+        for (motion in motionQueue) {
+            Log.d("queue", "ev.action : ${motion.action}")
+        }
+        Log.d("queue", "=============================================")
+    }
+
+
+    private fun dispatchSavedMotionEvents() {
+        isExporting = true
+        while (motionQueue.isNotEmpty()) {
+            Log.d(
+                Tag.TAG_TOUCH,
+                "dispatchTouchEvent user queue item action : ${motionQueue.peek().action}"
+            )
+            val ev = motionQueue.poll()
+            dispatchTouchEvent(ev)
+            ev?.recycle()
+        }
+        isExporting = false
     }
 
     private fun isScrollVertical(ev: MotionEvent): Boolean {

@@ -33,5 +33,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerVIewItemViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerVIewItemViewHolder, position: Int) {
         holder.bind(titleList[position])
+        holder.setToastPrinter()
     }
 }

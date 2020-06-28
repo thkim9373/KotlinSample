@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.hoony.kotlinsample.R
+import com.hoony.kotlinsample.common.ToastPrinter
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.OrientationConstraintLayout
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.observable_recycler_view.ObservableScrollViewCallbacks
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.observable_recycler_view.ScrollState
@@ -32,7 +33,7 @@ class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks,
     private fun initViewPager() {
         vpMain.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
-            adapter = UIViewPagerAdapter()
+            adapter = ViewPagerAdapter()
 
             setOnTouchListener(object : View.OnTouchListener {
                 override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -92,6 +93,9 @@ class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks,
 
     private fun initListener() {
         clContainer.addListener(this)
+//        clContainer.setOnClickListener {
+//            ToastPrinter.showToast(this, "Constraint layout clicked.")
+//        }
     }
 
     override fun onUpOrCancelMotionEvent(scrollState: ScrollState?) {
