@@ -150,6 +150,7 @@ class OrientationConstraintLayout(
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent VERTICAL")
                         orientation = Orientation.VERTICAL
                         dispatchSavedMotionEvents()
+                        printSamples(ev)
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
                         return true
                     }
@@ -157,6 +158,7 @@ class OrientationConstraintLayout(
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent HORIZONTAL")
                         orientation = Orientation.HORIZONTAL
                         dispatchSavedMotionEvents()
+                        printSamples(ev)
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
                         return true
                     }
@@ -176,8 +178,7 @@ class OrientationConstraintLayout(
     }
 
     private fun addQueuePrintLog(ev: MotionEvent) {
-        val cloneEv = MotionEvent.obtainNoHistory(ev)
-        motionQueue.add(cloneEv)
+        motionQueue.add(ev)
         for (motion in motionQueue) {
             Log.d("queue", "ev.action : ${motion.action}")
         }
@@ -194,9 +195,33 @@ class OrientationConstraintLayout(
             )
             val ev = motionQueue.poll()
             dispatchTouchEvent(ev)
-            ev?.recycle()
         }
         isExporting = false
+    }
+
+    fun printSamples(ev: MotionEvent) {
+        val historySize = ev.historySize
+        val pointerCount = ev.pointerCount
+        Log.d("history", "historySize : ${ev.historySize}   pointerCount : ${ev.pointerCount}")
+        for (h in 0 until historySize) {
+            Log.d("history", "At time ${ev.getHistoricalEventTime(h)}:")
+            for (p in 0 until pointerCount) {
+                Log.d(
+                    "history",
+                    "  pointer ${ev.getPointerId(p)}: (${ev.getHistoricalX(
+                        p,
+                        h
+                    )},${ev.getHistoricalY(p, h)})"
+                )
+            }
+        }
+        Log.d("history", "At time ${ev.eventTime}:")
+        for (p in 0 until pointerCount) {
+            Log.d(
+                "history",
+                "  pointer ${ev.getPointerId(p)}: (${ev.getX(p)},${ev.getY(p)})"
+            )
+        }
     }
 
     private fun isScrollVertical(ev: MotionEvent): Boolean {
