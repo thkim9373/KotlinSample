@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#555555"
-        tools:context=".custom_view.CustomViewActivity">
+        tools:context=".custom_view.smile_emoticon_example.CustomViewActivity">
 
-        <com.hoony.kotlinsample.custom_view.EmotionalFaceView
+        <com.hoony.kotlinsample.custom_view.smile_emoticon_example.EmotionalFaceView
             android:id="@+id/emotion_face_view"
             android:layout_width="320dp"
             android:layout_height="320dp"
@@ -22,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.hoony.kotlinsample.custom_view.EmotionalFaceView
+        <com.hoony.kotlinsample.custom_view.smile_emoticon_example.EmotionalFaceView
             android:id="@+id/happy_button"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -35,7 +35,7 @@
             app:mouthColor="@color/white"
             app:state="happy" />
 
-        <com.hoony.kotlinsample.custom_view.EmotionalFaceView
+        <com.hoony.kotlinsample.custom_view.smile_emoticon_example.EmotionalFaceView
             android:id="@+id/sad_button"
             android:layout_width="80dp"
             android:layout_height="80dp"

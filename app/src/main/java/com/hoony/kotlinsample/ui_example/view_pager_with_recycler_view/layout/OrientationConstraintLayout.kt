@@ -7,16 +7,13 @@ import android.view.MotionEvent
 import android.view.ViewConfiguration
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.hoony.kotlinsample.util.Tag
-import java.util.*
 import kotlin.math.abs
 
-class OrientationConstraintLayout(
+class OrientationConstraintLayout @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet?,
-    int: Int
-) : ConstraintLayout(context, attrs, int) {
-    constructor(context: Context, attrs: AttributeSet) : this(context, attrs, 0)
-    constructor(context: Context) : this(context, null, 0)
+    attrs: AttributeSet? = null,
+    defStyleInt: Int = 0
+) : ConstraintLayout(context, attrs, defStyleInt) {
 
     enum class Orientation {
         NON, VERTICAL, HORIZONTAL
@@ -60,7 +57,10 @@ class OrientationConstraintLayout(
     private var startY: Float = 0f
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        Log.d("click", "layout - dispatchTouchEvent action : ${ev?.actionMasked}    orientation : $orientation    isClick : $isClick")
+        Log.d(
+            "click",
+            "layout - dispatchTouchEvent action : ${ev?.actionMasked}    orientation : $orientation    isClick : $isClick"
+        )
         when (ev?.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 if (orientation == Orientation.NON && !isClick) {
@@ -82,7 +82,7 @@ class OrientationConstraintLayout(
 
                 val originAction = ev.action
 
-                if(orientation == Orientation.NON) {
+                if (orientation == Orientation.NON) {
                     ev.action = MotionEvent.ACTION_DOWN
                     isClick = true
                     dispatchTouchEvent(ev)
@@ -119,7 +119,10 @@ class OrientationConstraintLayout(
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
 //        Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent")
-        Log.d("click", "layout - onInterceptTouchEvent action : ${ev?.actionMasked}    orientation : $orientation    isClick : $isClick")
+        Log.d(
+            "click",
+            "layout - onInterceptTouchEvent action : ${ev?.actionMasked}    orientation : $orientation    isClick : $isClick"
+        )
         if (scaleSlop == -1) {
             scaleSlop = ViewConfiguration.get(this.context).scaledTouchSlop
         }
@@ -142,7 +145,10 @@ class OrientationConstraintLayout(
     }
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
-        Log.d("click", "layout - onTouchEvent action : ${ev?.actionMasked}    orientation : $orientation    isClick : $isClick")
+        Log.d(
+            "click",
+            "layout - onTouchEvent action : ${ev?.actionMasked}    orientation : $orientation    isClick : $isClick"
+        )
         if (orientation == Orientation.NON) {
             when (ev?.actionMasked) {
                 MotionEvent.ACTION_MOVE -> {

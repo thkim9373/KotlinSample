@@ -48,7 +48,7 @@
         <activity android:name=".content_provider.contact.ContactActivity" />
         <activity android:name=".content_provider.audio.AudioActivity" />
         <activity android:name=".content_provider.video.list.VideoActivity" />
-        <activity android:name=".custom_view.CustomViewActivity" />
+        <activity android:name=".custom_view.smile_emoticon_example.CustomViewActivity" />
         <activity android:name=".saved_state_view_model.SavedStateViewModelActivity" />
         <activity android:name=".dagger.example1.DaggerExample1Activity" />
         <activity android:name=".dagger.list.DaggerExampleListActivity" />
@@ -65,6 +65,8 @@
         <activity android:name=".behavior.scroll_example_1.BehaviorExampleActivity3" />
         <activity android:name=".behavior.scroll_example_2.BehaviorExampleActivity4" />
         <activity android:name=".behavior.scroll_example_3.BehaviorExampleActivity5" />
+        <activity android:name=".custom_view.list.ListActivity" />
+        <activity android:name=".custom_view.layout_contain_view_pager_example.CustomVIewActivity2" />
 
         <receiver android:name=".memo.broadcast_receiver.AlarmTool" />
     </application>

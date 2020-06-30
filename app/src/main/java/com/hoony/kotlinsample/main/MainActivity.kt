@@ -1,7 +1,7 @@
 package com.hoony.kotlinsample.main
 
 import com.hoony.kotlinsample.content_provider.list.ListActivity
-import com.hoony.kotlinsample.custom_view.CustomViewActivity
+import com.hoony.kotlinsample.custom_view.smile_emoticon_example.CustomViewActivity
 import com.hoony.kotlinsample.dagger.list.DaggerExampleListActivity
 import com.hoony.kotlinsample.data.TargetData
 import com.hoony.kotlinsample.memo.intro.IntroActivity

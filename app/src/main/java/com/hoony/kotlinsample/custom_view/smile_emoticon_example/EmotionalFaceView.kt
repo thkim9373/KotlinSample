@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.custom_view
+package com.hoony.kotlinsample.custom_view.smile_emoticon_example
 
 import android.content.Context
 import android.graphics.*
@@ -27,12 +27,17 @@ class EmotionalFaceView(context: Context, attrs: AttributeSet?, defStyleAttr: In
     // view does not set one of them.
 
     // Some colors for the background, eyes and mouth.
-    private var faceColor = DEFAULT_FACE_COLOR
-    private var eyesColor = DEFAULT_EYES_COLOR
-    private var mouthColor = DEFAULT_MOUTH_COLOR
-    private var borderColor = DEFAULT_BORDER_COLOR
+    private var faceColor =
+        DEFAULT_FACE_COLOR
+    private var eyesColor =
+        DEFAULT_EYES_COLOR
+    private var mouthColor =
+        DEFAULT_MOUTH_COLOR
+    private var borderColor =
+        DEFAULT_BORDER_COLOR
     // Face border width in pixels.
-    private var borderWidth = DEFAULT_BORDER_WIDTH
+    private var borderWidth =
+        DEFAULT_BORDER_WIDTH
 
     // Paint object for coloring and styling
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -41,7 +46,8 @@ class EmotionalFaceView(context: Context, attrs: AttributeSet?, defStyleAttr: In
     private var size = 0
 
     // Add a new property called happinessStyle for rhe face happiness state.
-    var happinessState = HAPPY
+    var happinessState =
+        HAPPY
         set(state) {
             field = state
             // Call the invalidate() method in the set happinessState method. The invalidate()
@@ -63,14 +69,24 @@ class EmotionalFaceView(context: Context, attrs: AttributeSet?, defStyleAttr: In
         // Extract custom attributes into member variables.
         happinessState =
             typedArray.getInt(R.styleable.EmotionalFaceView_state, HAPPY.toInt()).toLong()
-        faceColor = typedArray.getColor(R.styleable.EmotionalFaceView_faceColor, DEFAULT_FACE_COLOR)
-        eyesColor = typedArray.getColor(R.styleable.EmotionalFaceView_eyesColor, DEFAULT_EYES_COLOR)
+        faceColor = typedArray.getColor(R.styleable.EmotionalFaceView_faceColor,
+            DEFAULT_FACE_COLOR
+        )
+        eyesColor = typedArray.getColor(R.styleable.EmotionalFaceView_eyesColor,
+            DEFAULT_EYES_COLOR
+        )
         mouthColor =
-            typedArray.getColor(R.styleable.EmotionalFaceView_mouthColor, DEFAULT_MOUTH_COLOR)
+            typedArray.getColor(R.styleable.EmotionalFaceView_mouthColor,
+                DEFAULT_MOUTH_COLOR
+            )
         borderColor =
-            typedArray.getColor(R.styleable.EmotionalFaceView_borderColor, DEFAULT_BORDER_COLOR)
+            typedArray.getColor(R.styleable.EmotionalFaceView_borderColor,
+                DEFAULT_BORDER_COLOR
+            )
         borderWidth =
-            typedArray.getDimension(R.styleable.EmotionalFaceView_borderWidth, DEFAULT_BORDER_WIDTH)
+            typedArray.getDimension(R.styleable.EmotionalFaceView_borderWidth,
+                DEFAULT_BORDER_WIDTH
+            )
 
         // Recycle the typedArray to make the data associated with it ready for garbage collection.
         typedArray.recycle()
@@ -184,7 +200,9 @@ class EmotionalFaceView(context: Context, attrs: AttributeSet?, defStyleAttr: In
         var viewState = state
         if (viewState is Bundle) {
             // Get the happiness value.
-            happinessState = viewState.getLong("happinessState", HAPPY)
+            happinessState = viewState.getLong("happinessState",
+                HAPPY
+            )
             // Get the superstate then it to the super method.
             viewState = viewState.getParcelable("superState")
         }

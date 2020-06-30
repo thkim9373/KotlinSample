@@ -1,4 +1,4 @@
-package com.hoony.kotlinsample.custom_view
+package com.hoony.kotlinsample.custom_view.smile_emoticon_example
 
 import android.os.Bundle
 import android.view.View
@@ -25,11 +25,13 @@ class CustomViewActivity : AppCompatActivity(), View.OnClickListener {
             when (view.id) {
                 // Set the emotionalFaceView's happinessState to HAPPY when the user clicks on the happy button.
                 R.id.happy_button -> {
-                    binding.emotionFaceView.happinessState = EmotionalFaceView.HAPPY
+                    binding.emotionFaceView.happinessState =
+                        EmotionalFaceView.HAPPY
                 }
                 // Set the emotionalFaceView's happiness to SAD when the user clicks on the sad button.
                 R.id.sad_button -> {
-                    binding.emotionFaceView.happinessState = EmotionalFaceView.SAD
+                    binding.emotionFaceView.happinessState =
+                        EmotionalFaceView.SAD
                 }
             }
         }
