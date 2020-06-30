@@ -31,6 +31,8 @@ class OrientationConstraintLayout(
          * @param ev ACTION_DOWN 일 때 들어온 motion event.
          */
         fun onActionDown(ev: MotionEvent)
+
+        fun onScrollStateChanged(orientation: Orientation, isScrolling: Boolean)
     }
 
     fun addListener(listener: OnPreTouchListener) {
@@ -43,163 +45,143 @@ class OrientationConstraintLayout(
         }
     }
 
-    private var listenerList: MutableList<OnPreTouchListener> = arrayListOf()
+    private fun scrollStateChange(orientation: Orientation, isScrolling: Boolean) {
+        for (listener in listenerList) {
+            listener.onScrollStateChanged(orientation, isScrolling)
+        }
+    }
 
+    private var listenerList: MutableList<OnPreTouchListener> = arrayListOf()
+    private var isClick: Boolean = false
     var orientation: Orientation = Orientation.NON  // 사용자의 터치 방향
-    var isExporting: Boolean = false
     private var scaleSlop: Int = -1 // 유저 액션이 스크롤 중인지 판단할 때 사용하는 거리
     private var firstMotionEvent: MotionEvent? = null
-    private val motionQueue: Queue<MotionEvent> = LinkedList()
     private var startX: Float = 0f
     private var startY: Float = 0f
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        Log.d("click", "layout - dispatchTouchEvent action : ${ev?.actionMasked}    orientation : $orientation    isClick : $isClick")
         when (ev?.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
-                if (orientation == Orientation.NON) {
+                if (orientation == Orientation.NON && !isClick) {
                     firstMotionEvent = ev
-                    Log.d(Tag.TAG_TOUCH, "add down action")
-//                    motionQueue.add(ev)
-                    addQueuePrintLog(ev)
                     onActionDown(ev)
-
-                    Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent return true")
                     onInterceptTouchEvent(ev)
                     return true
                 }
             }
             MotionEvent.ACTION_MOVE -> {
                 if (orientation == Orientation.NON) {
-//                    motionQueue.add(ev)
-                    addQueuePrintLog(ev)
-                    Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent return true")
                     onInterceptTouchEvent(ev)
                     return true
                 }
             }
             MotionEvent.ACTION_UP,
             MotionEvent.ACTION_CANCEL -> {
-//                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_UP or ACTION_CANCEL")
+                scrollStateChange(orientation, false)
 
-                dispatchSavedMotionEvents()
+                val originAction = ev.action
 
-//                if (orientation == Orientation.NON && firstMotionEvent != null) {
-//                    Log.d(Tag.TAG_CLICK, "")
-//                    super.dispatchTouchEvent(firstMotionEvent)
-//                }
+                if(orientation == Orientation.NON) {
+                    ev.action = MotionEvent.ACTION_DOWN
+                    isClick = true
+                    dispatchTouchEvent(ev)
+                    ev.addBatch(
+                        ev.eventTime + 1,
+                        ev.x,
+                        ev.y,
+                        ev.pressure,
+                        ev.size,
+                        ev.metaState
+                    )
 
-//                if(firstMotionEvent != null) {
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                        performContextClick(firstMotionEvent!!.x, firstMotionEvent!!.y)
-//                    }
-//                }
+                    ev.action = originAction
+                    val result = super.dispatchTouchEvent(ev)
 
+                    orientation = Orientation.NON
+                    firstMotionEvent = null
+
+                    isClick = false
+
+                    return result
+                }
+
+                ev.action = originAction
                 val result = super.dispatchTouchEvent(ev)
 
                 orientation = Orientation.NON
                 firstMotionEvent = null
-                Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent result : $result")
                 return result
             }
         }
-        val result = super.dispatchTouchEvent(ev)
-        Log.d(Tag.TAG_TOUCH, "layout - dispatchTouchEvent result : $result")
-        return result
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
 //        Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent")
-
+        Log.d("click", "layout - onInterceptTouchEvent action : ${ev?.actionMasked}    orientation : $orientation    isClick : $isClick")
         if (scaleSlop == -1) {
             scaleSlop = ViewConfiguration.get(this.context).scaledTouchSlop
         }
 
-        if (orientation == Orientation.NON) {
+        if (orientation == Orientation.NON && !isClick) {
             when (ev?.actionMasked) {
                 MotionEvent.ACTION_DOWN -> {
-//                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_DOWN")
-
                     startX = ev.x
                     startY = ev.y
                 }
-//            MotionEvent.ACTION_UP,
-//            MotionEvent.ACTION_CANCEL -> {
-////                Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent ACTION_UP or ACTION_CANCEL")
-//                orientation = Orientation.NON
-//                firstMotionEvent = null
-//            }
             }
-
-            Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent return true")
             onTouchEvent(ev)
             return true
         }
 
-//        Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent return false")
-//        return false
-        val result = super.onInterceptTouchEvent(ev)
-        Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent result : $result")
-        return result
+//        val result = super.onInterceptTouchEvent(ev)
+//        Log.d(Tag.TAG_TOUCH, "layout - onInterceptTouchEvent result : $result")
+//        return result
+        return super.onInterceptTouchEvent(ev)
     }
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
+        Log.d("click", "layout - onTouchEvent action : ${ev?.actionMasked}    orientation : $orientation    isClick : $isClick")
         if (orientation == Orientation.NON) {
             when (ev?.actionMasked) {
                 MotionEvent.ACTION_MOVE -> {
                     if (isScrollVertical(ev)) {
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent VERTICAL")
                         orientation = Orientation.VERTICAL
-                        dispatchSavedMotionEvents()
+
+                        scrollStateChange(orientation, true)
+//                        dispatchSavedMotionEvents()
                         printSamples(ev)
-                        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
+                        ev.action = MotionEvent.ACTION_DOWN
+                        dispatchTouchEvent(ev)
                         return true
                     }
                     if (isScrollHorizontal(ev)) {
                         Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent HORIZONTAL")
                         orientation = Orientation.HORIZONTAL
-                        dispatchSavedMotionEvents()
+
+                        scrollStateChange(orientation, true)
+//                        dispatchSavedMotionEvents()
                         printSamples(ev)
-                        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
+                        ev.action = MotionEvent.ACTION_DOWN
+                        dispatchTouchEvent(ev)
                         return true
                     }
                 }
                 MotionEvent.ACTION_UP,
                 MotionEvent.ACTION_CANCEL -> {
+
                     orientation = Orientation.NON
                 }
             }
-            Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent return true")
             return true
         }
 
-        val result = super.onTouchEvent(ev)
-        Log.d(Tag.TAG_TOUCH, "layout - onTouchEvent result : $result")
-        return result
+        return super.onTouchEvent(ev)
     }
 
-    private fun addQueuePrintLog(ev: MotionEvent) {
-        motionQueue.add(ev)
-        for (motion in motionQueue) {
-            Log.d("queue", "ev.action : ${motion.action}")
-        }
-        Log.d("queue", "=============================================")
-    }
-
-
-    private fun dispatchSavedMotionEvents() {
-        isExporting = true
-        while (motionQueue.isNotEmpty()) {
-            Log.d(
-                Tag.TAG_TOUCH,
-                "dispatchTouchEvent user queue item action : ${motionQueue.peek().action}"
-            )
-            val ev = motionQueue.poll()
-            dispatchTouchEvent(ev)
-        }
-        isExporting = false
-    }
-
-    fun printSamples(ev: MotionEvent) {
+    private fun printSamples(ev: MotionEvent) {
         val historySize = ev.historySize
         val pointerCount = ev.pointerCount
         Log.d("history", "historySize : ${ev.historySize}   pointerCount : ${ev.pointerCount}")

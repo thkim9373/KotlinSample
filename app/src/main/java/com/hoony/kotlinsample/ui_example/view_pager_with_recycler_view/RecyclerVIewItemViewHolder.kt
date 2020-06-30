@@ -40,7 +40,7 @@ class RecyclerVIewItemViewHolder(private val binding: ItemSingleTextBinding) :
         binding.clContainer.setOnClickListener {
             ToastPrinter.showToast(
                 binding.root.context,
-                "Recycler view item clicked. Position : $adapterPosition"
+                "Recycler view item clicked. Position : ${adapterPosition + 1}"
             )
         }
     }

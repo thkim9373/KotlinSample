@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.hoony.kotlinsample.R
-import com.hoony.kotlinsample.common.ToastPrinter
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.layout.OrientationConstraintLayout
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.observable_recycler_view.ObservableScrollViewCallbacks
 import com.hoony.kotlinsample.ui_example.view_pager_with_recycler_view.observable_recycler_view.ScrollState
@@ -68,34 +67,12 @@ class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks,
             )
             adapter = RecyclerViewAdapter()
 
-//            setOnTouchListener(object : View.OnTouchListener {
-//                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//
-//                    when(event?.action) {
-//                        MotionEvent.ACTION_DOWN -> {
-//                            Log.d("touch", "recycler view - ACTION_DOWN")
-//                        }
-//                        MotionEvent.ACTION_MOVE -> {
-//                            Log.d("touch", "recycler view - ACTION_MOVE")
-//                        }
-//                        MotionEvent.ACTION_UP -> {
-//                            Log.d("touch", "recycler view - ACTION_UP")
-//                        }
-//                    }
-//
-//                    return false
-//                }
-//            })
-
             addScrollViewCallbacks(this@UIExampleActivity1)
         }
     }
 
     private fun initListener() {
         clContainer.addListener(this)
-//        clContainer.setOnClickListener {
-//            ToastPrinter.showToast(this, "Constraint layout clicked.")
-//        }
     }
 
     override fun onUpOrCancelMotionEvent(scrollState: ScrollState?) {
@@ -103,6 +80,13 @@ class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks,
     }
 
     override fun onScrollChanged(scrollY: Int, firstScroll: Boolean, dragging: Boolean) {
+        if (scrollY == 0) {
+            swipeRefreshLayout.isEnabled = true
+        } else {
+            if (!swipeRefreshLayout.isRefreshing) {
+                swipeRefreshLayout.isEnabled = false
+            }
+        }
         vpMain.translationY = (-scrollY).toFloat()
     }
 
@@ -112,5 +96,18 @@ class UIExampleActivity1 : AppCompatActivity(), ObservableScrollViewCallbacks,
 
     override fun onActionDown(ev: MotionEvent) {
         rvList.stopScroll()
+    }
+
+    override fun onScrollStateChanged(
+        orientation: OrientationConstraintLayout.Orientation,
+        isScrolling: Boolean
+    ) {
+        if (orientation == OrientationConstraintLayout.Orientation.HORIZONTAL && isScrolling) {
+            if (!swipeRefreshLayout.isRefreshing) {
+                swipeRefreshLayout.isEnabled = false
+            }
+        } else if(orientation == OrientationConstraintLayout.Orientation.HORIZONTAL) {
+            swipeRefreshLayout.isEnabled = true
+        }
     }
 }

@@ -43,11 +43,11 @@ class ViewPagerItem(private val view: View) :
     }
 
     fun setToastPrinter() {
-//        view.clContainer.setOnClickListener {
-//            ToastPrinter.showToast(
-//                view.context,
-//                "View pager item clicked. Position : $adapterPosition"
-//            )
-//        }
+        view.clContainer.setOnClickListener {
+            ToastPrinter.showToast(
+                view.context,
+                "View pager item clicked. Position : ${adapterPosition + 1}"
+            )
+        }
     }
 }

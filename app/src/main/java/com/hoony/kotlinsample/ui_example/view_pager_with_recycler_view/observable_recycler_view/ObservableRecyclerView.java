@@ -204,6 +204,7 @@ public class ObservableRecyclerView extends RecyclerView implements Scrollable {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.d("click", "recycler view - dispatchTouchEvent action : " + ev.getActionMasked());
         boolean result = super.dispatchTouchEvent(ev);
 //        Log.d("touch", "recycler view - dispatchTouchEvent result : " + result);
 //        if(isHorizontalScroll && viewPager2 != null) {
@@ -215,6 +216,7 @@ public class ObservableRecyclerView extends RecyclerView implements Scrollable {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        Log.d("click", "recycler view - onInterceptTouchEvent action : " + ev.getActionMasked());
         if (hasNoCallbacks()) {
             Log.d("touch", "recycler view - onInterceptTouchEvent : hasNoCallbacks");
             return super.onInterceptTouchEvent(ev);
@@ -231,6 +233,9 @@ public class ObservableRecyclerView extends RecyclerView implements Scrollable {
                 mFirstScroll = mDragging = true;
                 dispatchOnDownMotionEvent();
                 break;
+            case MotionEvent.ACTION_MOVE:
+                Log.d("touch", "recycler view - onInterceptTouchEvent : ACTION_MOVE");
+                break;
             case MotionEvent.ACTION_UP:
                 Log.d("touch", "recycler view - onInterceptTouchEvent : ACTION_UP");
                 break;
@@ -242,11 +247,14 @@ public class ObservableRecyclerView extends RecyclerView implements Scrollable {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-
+        Log.d("click", "recycler view - onTouchEvent action : " + ev.getActionMasked());
 //        Log.d("touch", "recycler view - onTouchEvent result : " + false);
 //        return false;
 
-        if ((((OrientationConstraintLayout) getParent()).getOrientation() == OrientationConstraintLayout.Orientation.HORIZONTAL) &&
+
+        Log.d("parent", "getParent() instanceof OrientationConstraintLayout : " + (getParent() instanceof OrientationConstraintLayout));
+        if (getParent() instanceof OrientationConstraintLayout &&
+                (((OrientationConstraintLayout) getParent()).getOrientation() != OrientationConstraintLayout.Orientation.VERTICAL) &&
                 !(ev.getActionMasked() == MotionEvent.ACTION_UP || ev.getActionMasked() == MotionEvent.ACTION_CANCEL)) {
             Log.d("touch", "recycler view - onTouchEvent orientation is horizontal");
             return false;
