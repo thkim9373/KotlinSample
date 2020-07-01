@@ -18,7 +18,7 @@ class MainActivity : AbsListActivity() {
         TargetData(IntroActivity::class.java, "Memo example"),
         TargetData(RoomActivity::class.java, "Room - Live Data example"),
         TargetData(ListActivity::class.java, "Content provider example"),
-        TargetData(CustomViewActivity::class.java, "Custom view example"),
+        TargetData(com.hoony.kotlinsample.custom_view.list.ListActivity::class.java, "Custom view examples"),
         TargetData(SavedStateViewModelActivity::class.java, "Saved state view model example"),
         TargetData(DaggerExampleListActivity::class.java, "Dagger examples"),
         TargetData(RxJavaExampleListActivity::class.java, "Rx java examples"),
