@@ -1,11 +1,10 @@
 package com.hoony.kotlinsample.ui_example.view_pager_in_recycler_view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.hoony.kotlinsample.R
-import kotlinx.android.synthetic.main.item_view_pager.view.*
 
 class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -19,7 +18,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val itemList: ArrayList<String> = arrayListOf()
 
     init {
-        for (i in 1..20) {
+        for (i in 1..50) {
             itemList.add("Item $i")
         }
     }
@@ -32,13 +31,16 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            ITEM_VIEW_PAGER -> ListItemViewPager(
+            ITEM_VIEW_PAGER -> ListItemText(
+//                LayoutInflater.from(parent.context).inflate(
+//                    R.layout.item_view_pager,
+//                    parent,
+//                    false
+//                )
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.item_view_pager,
+                    R.layout.item_single_text_full_size,
                     parent,
                     false
                 )
@@ -58,6 +60,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d("hoony", "onBindViewHolder position : $position")
         when (holder.itemViewType) {
             ITEM_VIEW_PAGER -> {
 //                holder.itemView.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -66,6 +69,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             else -> {
                 (holder as ListItemText).setText(itemList[position - 1])
+
             }
         }
     }
