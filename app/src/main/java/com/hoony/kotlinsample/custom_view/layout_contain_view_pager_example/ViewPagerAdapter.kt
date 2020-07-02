@@ -1,9 +1,7 @@
 package com.hoony.kotlinsample.custom_view.layout_contain_view_pager_example
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hoony.kotlinsample.R
 
 class ViewPagerAdapter : RecyclerView.Adapter<ViewPagerItem>() {
 
@@ -16,12 +14,22 @@ class ViewPagerAdapter : RecyclerView.Adapter<ViewPagerItem>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerItem {
+
+        val view = ViewPagerItemView(parent.context)
+
+        val layoutParams = ViewGroup.MarginLayoutParams(
+            ViewGroup.MarginLayoutParams.MATCH_PARENT,
+            ViewGroup.MarginLayoutParams.MATCH_PARENT
+        )
+        view.layoutParams = layoutParams
+//        val view = LayoutInflater.from(parent.context).inflate(
+//            R.layout.item_single_text_full_size,
+//            parent,
+//            false
+//        )
+
         return ViewPagerItem(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_single_text_full_size,
-                parent,
-                false
-            )
+            view
         )
     }
 
