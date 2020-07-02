@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hoony.kotlinsample.R
 
-class ViewPagerAdapter : RecyclerView.Adapter<ViewPagerItem>() {
+class ViewPagerAdapter() : RecyclerView.Adapter<ViewPagerItem>() {
 
     private val titleList = arrayListOf<String>()
 
@@ -32,7 +32,7 @@ class ViewPagerAdapter : RecyclerView.Adapter<ViewPagerItem>() {
     }
 
     override fun onBindViewHolder(holder: ViewPagerItem, position: Int) {
-        holder.bind(titleList[position])
+            holder.bind(titleList[position])
         holder.changeBackgroundColor()
     }
 }

@@ -62,6 +62,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             ITEM_VIEW_PAGER -> {
 //                holder.itemView.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 //                holder.itemView.viewPager.adapter = viewPagerAdapter
+//                holder.itemView.translationY = 200f
             }
             else -> {
                 (holder as ListItemText).setText(itemList[position - 1])
