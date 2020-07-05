@@ -23,12 +23,6 @@
     <string name="update">재설정</string>
     <string name="delete">삭제</string>
 
-    <array name="content_provider_example_array">
-        <item>Contact example</item>
-        <item>Album example</item>
-        <item>video example</item>
-    </array>
-
     <string name="album_divider">|</string>
 
     <string name="permission_dialog_title">Permission denied.</string>
