@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.hoony.kotlinsample.R
 import kotlinx.android.synthetic.main.item_gallery.view.*
 
@@ -46,7 +45,7 @@ class GalleryViewHolder(private val view: View) : RecyclerView.ViewHolder(view) 
 
         Glide.with(view.context)
             .load(contentUri)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .centerCrop()
             .thumbnail(0.3f)
             .into(view.ivImage)
     }
