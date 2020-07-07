@@ -2,6 +2,7 @@ package com.hoony.kotlinsample.ui_example.view_pager_in_recycler_view
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.*
 import com.hoony.kotlinsample.R
@@ -37,8 +38,10 @@ class UIExample2Activity : AppCompatActivity() {
                 state: RecyclerView.State,
                 extraLayoutSpace: IntArray
             ) {
-                extraLayoutSpace[0] = 1500
-                extraLayoutSpace[1] = 1500
+                val deviceHeight = resources.displayMetrics.heightPixels
+
+                extraLayoutSpace[0] = deviceHeight
+                extraLayoutSpace[1] = deviceHeight
             }
         }
         rvList.layoutManager = layoutManager

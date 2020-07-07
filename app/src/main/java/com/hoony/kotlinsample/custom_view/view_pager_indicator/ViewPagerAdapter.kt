@@ -18,7 +18,7 @@ class ViewPagerAdapter : RecyclerView.Adapter<ViewPagerItem>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerItem {
         return ViewPagerItem(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_single_text_full_size,
+                R.layout.item_single_text_gradient,
                 parent,
                 false
             )
@@ -33,5 +33,6 @@ class ViewPagerAdapter : RecyclerView.Adapter<ViewPagerItem>() {
         holder.setText(titleList[position])
         holder.changeBackgroundColor()
         holder.setToastPrinter()
+        holder.setBottomGradient()
     }
 }
