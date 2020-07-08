@@ -2,6 +2,7 @@ package com.hoony.kotlinsample.custom_view.view_pager_indicator
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.view.View
 import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.RecyclerView
@@ -36,16 +37,37 @@ class ViewPagerItem(private val view: View) :
     }
 
     fun setBottomGradient() {
+//        // 0~255 사이, 0, 25, 50, 75, 100%
+//        val colors = intArrayOf(
+//            ColorUtils.setAlphaComponent(Color.parseColor("#200802"), 255),
+//            ColorUtils.setAlphaComponent(Color.parseColor("#200802"), 199),
+//            ColorUtils.setAlphaComponent(Color.parseColor("#200802"), 143),
+//            ColorUtils.setAlphaComponent(Color.parseColor("#200802"), 77),
+//            ColorUtils.setAlphaComponent(Color.parseColor("#141517"), 0)
+//        )
         // 0~255 사이, 0, 25, 50, 75, 100%
         val colors = intArrayOf(
-            ColorUtils.setAlphaComponent(Color.parseColor("#200802"), 255),
+            ColorUtils.setAlphaComponent(Color.parseColor("#ffffff"), 255),
             ColorUtils.setAlphaComponent(Color.parseColor("#200802"), 199),
             ColorUtils.setAlphaComponent(Color.parseColor("#200802"), 143),
             ColorUtils.setAlphaComponent(Color.parseColor("#200802"), 77),
-            ColorUtils.setAlphaComponent(Color.parseColor("#141517"), 0)
+            ColorUtils.setAlphaComponent(Color.parseColor("#200802"), 0)
         )
-        val gradientDrawable =
+        val offsetArray: FloatArray = floatArrayOf(
+            0f,
+            0.26f,
+            0.55f,
+            0.81f,
+            1f
+        )
+        val gradientDrawable = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            GradientDrawable().apply {
+                orientation = GradientDrawable.Orientation.BOTTOM_TOP
+                setColors(colors, offsetArray)
+            }
+        } else {
             GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors)
+        }
 
         view.viewBottomGradient.background = gradientDrawable
     }
