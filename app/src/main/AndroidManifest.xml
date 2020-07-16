@@ -69,6 +69,7 @@
         <activity android:name=".custom_view.layout_contain_view_pager_example.CustomVIewActivity2" />
         <activity android:name=".content_provider.galley.GalleryActivity" />
         <activity android:name=".custom_view.view_pager_indicator.ViewPagerIndicatorActivity" />
+        <activity android:name=".dagger.coffee.CoffeeActivity" />
 
         <receiver android:name=".memo.broadcast_receiver.AlarmTool" />
     </application>
