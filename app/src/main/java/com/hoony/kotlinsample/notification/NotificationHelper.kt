@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.TaskStackBuilder
 import com.hoony.kotlinsample.R
 
@@ -28,6 +29,28 @@ class NotificationHelper {
             notificationManager.notify(0, notification)
         }
 
+        fun sendNotification(
+            context: Context,
+            importance: Int,
+            showBadge: Boolean,
+            title: String,
+            message: String
+        ) {
+
+            createNotificationChannel(
+                context,
+                importance,
+                showBadge,
+                NOTIFICATION_NAME,
+                NOTIFICATION_DESCRIPTION
+            )
+
+            val notification = buildNotification(context, title, message)
+
+            val notificationManager = NotificationManagerCompat.from(context)
+            notificationManager.notify(0, notification)
+        }
+
         private fun createNotificationChannel(
             notificationManager: NotificationManager
         ) {
@@ -45,6 +68,34 @@ class NotificationHelper {
                     lockscreenVisibility = Notification.VISIBILITY_PUBLIC
                 }
 
+                notificationManager.createNotificationChannel(notificationChannel)
+            }
+        }
+
+        private fun createNotificationChannel(
+            context: Context,
+            importance: Int,
+            showBadge: Boolean,
+            name: String,
+            description: String
+        ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                val notificationChannel = NotificationChannel(
+                    NOTIFICATION_ID,
+                    name,
+                    importance
+                ).apply {
+                    this.description = description
+                    enableLights(true)
+                    enableVibration(true)
+                    setShowBadge(showBadge)
+                    vibrationPattern = longArrayOf(100, 200, 100, 200)
+                    lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+                }
+
+                val notificationManager =
+                    context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.createNotificationChannel(notificationChannel)
             }
         }
