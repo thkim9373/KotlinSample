@@ -29,5 +29,27 @@ class NotificationActivity : AppCompatActivity() {
                 textEdit.text.toString()
             )
         }
+        binding.styleGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.defaultStyle -> {
+
+                }
+                R.id.bigTextStyle -> {
+
+                }
+                R.id.bigPictureStyle -> {
+
+                }
+                R.id.messagingStyle -> {
+
+                }
+                R.id.mediaStyle -> {
+
+                }
+                R.id.inboxStyle -> {
+
+                }
+            }
+        }
     }
 }
