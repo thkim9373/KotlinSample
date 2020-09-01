@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.databinding.ActivityNotificationBinding
-import kotlinx.android.synthetic.main.activity_notification.*
 
 class NotificationActivity : AppCompatActivity() {
 
@@ -16,6 +15,7 @@ class NotificationActivity : AppCompatActivity() {
 
     private var nowFragmentName: String = ""
     private val bigTextFragment: BigTextFragment = BigTextFragment()
+    private val bigPictureFragment: BigPictureFragment = BigPictureFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +30,9 @@ class NotificationActivity : AppCompatActivity() {
                 this,
                 NotificationManager.IMPORTANCE_DEFAULT,
                 false,
-                titleEdit.text.toString(),
-                textEdit.text.toString()
+                getNotificationStyle(binding.styleGroup.checkedRadioButtonId),
+                getNotificationTitle(),
+                getNotificationText()
             )
         }
         binding.styleGroup.setOnCheckedChangeListener { _, checkedId ->
@@ -49,22 +50,43 @@ class NotificationActivity : AppCompatActivity() {
         }
     }
 
+    private fun getNotificationTitle(): String =
+        if (binding.titleEdit.text.isNotEmpty()) {
+            binding.titleEdit.text.toString()
+        } else {
+            "Title"
+        }
+
+    private fun getNotificationText(): String =
+        if (binding.textEdit.text.isNotEmpty()) {
+            binding.textEdit.text.toString()
+        } else {
+            "Text"
+        }
+
     private fun getFragment(checkedId: Int): Fragment? =
         when (checkedId) {
             R.id.defaultStyle -> null
             R.id.bigTextStyle -> bigTextFragment
-            R.id.bigPictureStyle -> bigTextFragment
-            R.id.messagingStyle -> bigTextFragment
-            R.id.mediaStyle -> bigTextFragment
-            R.id.inboxStyle -> bigTextFragment
+            R.id.bigPictureStyle -> bigPictureFragment
+            R.id.messagingStyle -> null
+            R.id.mediaStyle -> null
+            R.id.inboxStyle -> null
             else -> null
         }
 
     private fun getNotificationStyle(checkedId: Int): NotificationCompat.Style? =
         when (checkedId) {
             R.id.defaultStyle -> null
-            R.id.bigTextStyle -> NotificationCompat.BigTextStyle()
-            R.id.bigPictureStyle -> NotificationCompat.BigPictureStyle()
+            R.id.bigTextStyle -> {
+                NotificationCompat.BigTextStyle()
+                    .bigText(bigTextFragment.getBigText())
+            }
+            R.id.bigPictureStyle -> {
+                NotificationCompat.BigPictureStyle()
+                    .bigPicture(bigPictureFragment.getImageBitmap())
+                    .bigLargeIcon(bigPictureFragment.getImageBitmap())
+            }
             R.id.messagingStyle -> {
                 NotificationCompat.MessagingStyle("User")
             }

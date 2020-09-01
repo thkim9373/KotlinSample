@@ -24,7 +24,8 @@ class NotificationHelper {
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             createNotificationChannel(notificationManager)
-            val notification = buildNotification(context, title, message)
+            val notification =
+                buildNotification(context, NotificationCompat.BigTextStyle(), title, message)
 
             notificationManager.notify(0, notification)
         }
@@ -33,6 +34,7 @@ class NotificationHelper {
             context: Context,
             importance: Int,
             showBadge: Boolean,
+            style: NotificationCompat.Style?,
             title: String,
             message: String
         ) {
@@ -45,7 +47,7 @@ class NotificationHelper {
                 NOTIFICATION_DESCRIPTION
             )
 
-            val notification = buildNotification(context, title, message)
+            val notification = buildNotification(context, style, title, message)
 
             val notificationManager = NotificationManagerCompat.from(context)
             notificationManager.notify(0, notification)
@@ -102,6 +104,7 @@ class NotificationHelper {
 
         private fun buildNotification(
             context: Context,
+            style: NotificationCompat.Style?,
             title: String,
             message: String
         ): Notification {
@@ -109,6 +112,10 @@ class NotificationHelper {
 
             val notificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_ID)
                 .apply {
+
+                    if (style != null) {
+                        this.setStyle(style)
+                    }
                     setSmallIcon(R.drawable.ic_launcher_background)
                     setAutoCancel(true)
                     setDefaults(Notification.DEFAULT_ALL)

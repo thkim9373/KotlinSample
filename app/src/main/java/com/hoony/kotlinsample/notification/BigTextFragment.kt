@@ -28,10 +28,10 @@ class BigTextFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.bigText.setText(
-            "살어리 살어리랏다" +
-                    "청산에 살어리랏다" +
-                    "멀위랑 다래랑 먹고" +
-                    "청산에 살어리랏다" +
+            "살어리 살어리랏다\n" +
+                    "청산에 살어리랏다\n" +
+                    "멀위랑 다래랑 먹고\n" +
+                    "청산에 살어리랏다\n" +
                     "얄리얄리얄라셩얄라리얄라"
         )
     }
