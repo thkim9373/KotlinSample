@@ -69,9 +69,9 @@ class NotificationActivity : AppCompatActivity() {
             R.id.defaultStyle -> null
             R.id.bigTextStyle -> bigTextFragment
             R.id.bigPictureStyle -> bigPictureFragment
+            R.id.inboxStyle -> null
             R.id.messagingStyle -> null
             R.id.mediaStyle -> null
-            R.id.inboxStyle -> null
             else -> null
         }
 
@@ -87,11 +87,11 @@ class NotificationActivity : AppCompatActivity() {
                     .bigPicture(bigPictureFragment.getImageBitmap())
                     .bigLargeIcon(bigPictureFragment.getImageBitmap())
             }
+            R.id.inboxStyle -> NotificationCompat.InboxStyle()
             R.id.messagingStyle -> {
                 NotificationCompat.MessagingStyle("User")
             }
             R.id.mediaStyle -> androidx.media.app.NotificationCompat.MediaStyle()
-            R.id.inboxStyle -> NotificationCompat.InboxStyle()
             else -> null
         }
 }
