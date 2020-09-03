@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.core.app.Person
 import androidx.core.graphics.drawable.IconCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -97,9 +98,21 @@ class NotificationActivity : AppCompatActivity() {
                     .setSummaryText("Summary text")
             }
             R.id.messagingStyle -> {
-                val userIcon1 = IconCompat.createWithResource(this, R.drawable.ic_weather)
+//                https://picsum.photos/id/237/200/300
+                val userIcon1 = IconCompat.createWithResource(this, R.drawable.ic_location)
+                val userIcon2 = IconCompat.createWithResource(this, R.drawable.ic_launcher_foreground)
+                val userIcon3 = IconCompat.createWithResource(this, R.drawable.ic_alarm)
+                val userName1 = "휴"
+                val userName2 = "엘라인"
+                val userName3 = "조시"
+                val timeStamp = System.currentTimeMillis()
+                val user1 = Person.Builder().setIcon(userIcon1).setName(userName1).build()
+                val user2 = Person.Builder().setIcon(userIcon2).setName(userName2).build()
+                val user3 = Person.Builder().setIcon(userIcon3).setName(userName3).build()
 
-                NotificationCompat.MessagingStyle("User")
+                NotificationCompat.MessagingStyle(user3)
+                    .addMessage("조시야 국이 짜다", timeStamp, user1)
+                    .addMessage("조시야 물도 짜다", timeStamp, user2)
             }
             R.id.mediaStyle -> androidx.media.app.NotificationCompat.MediaStyle()
             else -> null
