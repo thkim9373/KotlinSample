@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.core.graphics.drawable.IconCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.hoony.kotlinsample.R
@@ -87,8 +88,17 @@ class NotificationActivity : AppCompatActivity() {
                     .bigPicture(bigPictureFragment.getImageBitmap())
                     .bigLargeIcon(bigPictureFragment.getImageBitmap())
             }
-            R.id.inboxStyle -> NotificationCompat.InboxStyle()
+            R.id.inboxStyle -> {
+                NotificationCompat.InboxStyle()
+                    .addLine("Mail1 ...")
+                    .addLine("Mail2 ...")
+                    .addLine("Mail3 ...")
+                    .setBigContentTitle("Big content title")
+                    .setSummaryText("Summary text")
+            }
             R.id.messagingStyle -> {
+                val userIcon1 = IconCompat.createWithResource(this, R.drawable.ic_weather)
+
                 NotificationCompat.MessagingStyle("User")
             }
             R.id.mediaStyle -> androidx.media.app.NotificationCompat.MediaStyle()
