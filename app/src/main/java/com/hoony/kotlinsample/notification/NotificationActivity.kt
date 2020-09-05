@@ -30,7 +30,7 @@ class NotificationActivity : AppCompatActivity() {
         binding.create.setOnClickListener {
             NotificationHelper.sendNotification(
                 this,
-                NotificationManager.IMPORTANCE_DEFAULT,
+                getNotificationImportance(),
                 false,
                 getNotificationStyle(binding.styleGroup.checkedRadioButtonId),
                 getNotificationTitle(),
@@ -117,4 +117,7 @@ class NotificationActivity : AppCompatActivity() {
             R.id.mediaStyle -> androidx.media.app.NotificationCompat.MediaStyle()
             else -> null
         }
+
+    private fun getNotificationImportance() : Int =
+        if (binding.headUpSwitch.isChecked) NotificationManager.IMPORTANCE_HIGH else NotificationManager.IMPORTANCE_DEFAULT
 }

@@ -96,6 +96,25 @@
             app:layout_constraintStart_toStartOf="@+id/guideHorizontal50"
             app:layout_constraintTop_toBottomOf="@+id/titleEdit" />
 
+        <TextView
+            android:id="@+id/headUpText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Head Up"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/guideHorizontal50"
+            app:layout_constraintTop_toBottomOf="@id/textEdit" />
+
+        <Switch
+            android:id="@+id/headUpSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/headUpText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/headUpText" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideHorizontal50"
             android:layout_width="wrap_content"
