@@ -4,7 +4,6 @@ import com.hoony.kotlinsample.content_provider.list.ListActivity
 import com.hoony.kotlinsample.dagger.list.DaggerExampleListActivity
 import com.hoony.kotlinsample.data.TargetData
 import com.hoony.kotlinsample.memo.intro.IntroActivity
-import com.hoony.kotlinsample.notification.NotificationActivity
 import com.hoony.kotlinsample.room.RoomActivity
 import com.hoony.kotlinsample.rx_java.list.RxJavaExampleListActivity
 import com.hoony.kotlinsample.saved_state_view_model.SavedStateViewModelActivity
@@ -30,8 +29,7 @@ class MainActivity : AbsListActivity() {
         TargetData(
             com.hoony.kotlinsample.behavior.list.ListActivity::class.java,
             "Behavior examples"
-        ),
-        TargetData(NotificationActivity::class.java, "Notification examples")
+        )
     )
 
     override fun getTargetDataList(): List<TargetData> {
