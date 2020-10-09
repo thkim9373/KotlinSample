@@ -55,7 +55,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$life_cycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$life_cycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$life_cycle_version"
-    implementation "androidx.fragment:fragment-ktx:1.2.4"
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
 
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
