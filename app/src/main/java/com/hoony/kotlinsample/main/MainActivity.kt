@@ -8,6 +8,7 @@ import com.hoony.kotlinsample.room.RoomActivity
 import com.hoony.kotlinsample.rx_java.list.RxJavaExampleListActivity
 import com.hoony.kotlinsample.saved_state_view_model.SavedStateViewModelActivity
 import com.hoony.kotlinsample.sticky_item_decoration.StickyItemDecorationActivity
+import com.hoony.kotlinsample.toast.ToastActivity
 import com.hoony.kotlinsample.ui_example.list.UiListActivity
 import com.hoony.kotlinsample.util.abstract_class.list_activity.AbsListActivity
 
@@ -29,7 +30,11 @@ class MainActivity : AbsListActivity() {
         TargetData(
             com.hoony.kotlinsample.behavior.list.ListActivity::class.java,
             "Behavior examples"
-        )
+        ),
+        TargetData(
+            ToastActivity::class.java,
+            "Toast examples"
+        ),
     )
 
     override fun getTargetDataList(): List<TargetData> {
