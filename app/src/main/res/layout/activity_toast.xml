@@ -8,6 +8,7 @@
     tools:context=".toast.ToastActivity">
 
     <Button
+        android:id="@+id/show_toast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="show Toast"
