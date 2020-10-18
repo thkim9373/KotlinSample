@@ -12,6 +12,15 @@ class ToastActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityToastBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setListener()
+    }
+
+    private fun setListener() {
+        binding.apply {
+            showToast.setOnClickListener {
+                SimpleCustomToast.show(this@ToastActivity, "Favorite")
+            }
+        }
     }
 }
-
