@@ -21,6 +21,9 @@ class ToastActivity : AppCompatActivity() {
             showToast.setOnClickListener {
                 SimpleCustomToast.show(this@ToastActivity, "Favorite")
             }
+            showErrorToast.setOnClickListener {
+                ErrorToast.show(this@ToastActivity, "Error!!!")
+            }
         }
     }
 }
