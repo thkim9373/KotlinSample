@@ -1,5 +1,6 @@
 package com.hoony.kotlinsample.main
 
+import com.hoony.kotlinsample.animation.AnimationActivity
 import com.hoony.kotlinsample.content_provider.list.ListActivity
 import com.hoony.kotlinsample.dagger.list.DaggerExampleListActivity
 import com.hoony.kotlinsample.data.TargetData
@@ -15,6 +16,10 @@ import com.hoony.kotlinsample.util.abstract_class.list_activity.AbsListActivity
 class MainActivity : AbsListActivity() {
 
     private val targetList: List<TargetData> = arrayListOf(
+        TargetData(
+            AnimationActivity::class.java,
+            "Animation examples"
+        ),
         TargetData(IntroActivity::class.java, "Memo example"),
         TargetData(RoomActivity::class.java, "Room - Live Data example"),
         TargetData(ListActivity::class.java, "Content provider example"),
