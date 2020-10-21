@@ -72,7 +72,8 @@
         <activity android:name=".custom_view.view_pager_indicator.ViewPagerIndicatorActivity" />
         <activity android:name=".dagger.coffee.CoffeeActivity" />
         <activity android:name=".toast.ToastActivity" />
-        <activity android:name=".animation.AnimationActivity" />
+        <activity android:name=".animation.AnimationListActivity" />
+        <activity android:name=".animation.interpolator.InterpolatorActivity" />
 
         <receiver android:name=".memo.broadcast_receiver.AlarmTool" />
     </application>
