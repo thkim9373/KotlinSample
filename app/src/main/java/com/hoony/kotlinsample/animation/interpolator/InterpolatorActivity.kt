@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.hoony.kotlinsample.databinding.ActivityInterpolatorBinding
 
 class InterpolatorActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityInterpolatorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
