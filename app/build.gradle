@@ -78,4 +78,6 @@ dependencies {
 
     implementation "io.reactivex:rxandroid:$rx_java_version"
     implementation "io.reactivex:rxjava:$rx_java_version"
+
+    implementation "com.kakao.sdk:v2-talk"
 }

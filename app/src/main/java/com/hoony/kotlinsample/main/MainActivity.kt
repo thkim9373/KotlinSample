@@ -4,6 +4,7 @@ import com.hoony.kotlinsample.animation.AnimationListActivity
 import com.hoony.kotlinsample.content_provider.list.ListActivity
 import com.hoony.kotlinsample.dagger.list.DaggerExampleListActivity
 import com.hoony.kotlinsample.data.TargetData
+import com.hoony.kotlinsample.kakao.KakaoListActivity
 import com.hoony.kotlinsample.memo.intro.IntroActivity
 import com.hoony.kotlinsample.room.RoomActivity
 import com.hoony.kotlinsample.rx_java.list.RxJavaExampleListActivity
@@ -16,6 +17,10 @@ import com.hoony.kotlinsample.util.abstract_class.list_activity.AbsListActivity
 class MainActivity : AbsListActivity() {
 
     private val targetList: List<TargetData> = arrayListOf(
+        TargetData(
+            KakaoListActivity::class.java,
+            "Kakao"
+        ),
         TargetData(
             AnimationListActivity::class.java,
             "Animation examples"

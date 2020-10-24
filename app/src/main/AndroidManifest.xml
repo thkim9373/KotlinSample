@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
+    <queries>
+        <package android:name="kakaolink" />
+    </queries>
+
     <application
         android:name=".memo.application.DemoMemoApplication"
         android:allowBackup="true"
@@ -74,7 +78,18 @@
         <activity android:name=".toast.ToastActivity" />
         <activity android:name=".animation.AnimationListActivity" />
         <activity android:name=".animation.interpolator.InterpolatorActivity" />
+        <activity android:name=".kakao.KakaoListActivity" />
+        <activity android:name=".kakao.message.MessageActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
+                <!-- "kakao{YOUR_NATIVE_APP_KEY}://kakaolink" 형식의 앱 실행 스킴을 설정하는데 사용 -->
+                <data android:host="kakaolink"
+                    android:scheme="kakao{app_key}" />
+            </intent-filter>
+        </activity>
         <receiver android:name=".memo.broadcast_receiver.AlarmTool" />
     </application>
 
