@@ -1,7 +1,6 @@
 package com.hoony.kotlinsample.memo.application
 
 import android.app.Application
-import com.naver.maps.map.NaverMapSdk
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
@@ -22,6 +21,6 @@ class DemoMemoApplication : Application() {
             }
             .build()
         Realm.setDefaultConfiguration(config)
-        NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("21y2oms6ve")
+//        NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("21y2oms6ve")
     }
 }

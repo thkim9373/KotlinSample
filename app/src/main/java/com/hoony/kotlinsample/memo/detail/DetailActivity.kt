@@ -25,9 +25,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.hoony.kotlinsample.R
-import com.naver.maps.geometry.LatLng
-import com.naver.maps.map.CameraPosition
-import com.naver.maps.map.MapView
+//import com.naver.maps.geometry.LatLng
+//import com.naver.maps.map.CameraPosition
+//import com.naver.maps.map.MapView
 //import com.takisoft.datetimepicker.DatePickerDialog
 //import com.takisoft.datetimepicker.TimePickerDialog
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -100,24 +100,24 @@ class DetailActivity : AppCompatActivity() {
             }
         })
 
-        locationInfoView.setOnClickListener {
-            val latitude = viewModel!!.memoData.latitude
-            val longitude = viewModel!!.memoData.longitude
-
-            if (!(latitude == 0.0 && longitude == 0.0)) {
-                val mapView = MapView(this)
-                mapView.getMapAsync {
-                    val latitude = viewModel!!.memoData.latitude
-                    val longitude = viewModel!!.memoData.longitude
-                    val cameraPosition = CameraPosition(LatLng(latitude, longitude), 1.0)
-                    it.cameraPosition = cameraPosition
-                }
-
-                AlertDialog.Builder(this)
-                    .setView(mapView)
-                    .show()
-            }
-        }
+//        locationInfoView.setOnClickListener {
+//            val latitude = viewModel!!.memoData.latitude
+//            val longitude = viewModel!!.memoData.longitude
+//
+//            if (!(latitude == 0.0 && longitude == 0.0)) {
+//                val mapView = MapView(this)
+//                mapView.getMapAsync {
+//                    val latitude = viewModel!!.memoData.latitude
+//                    val longitude = viewModel!!.memoData.longitude
+//                    val cameraPosition = CameraPosition(LatLng(latitude, longitude), 1.0)
+//                    it.cameraPosition = cameraPosition
+//                }
+//
+//                AlertDialog.Builder(this)
+//                    .setView(mapView)
+//                    .show()
+//            }
+//        }
 
         fab.setOnClickListener { view ->
             val intent = Intent(Intent.ACTION_GET_CONTENT)
