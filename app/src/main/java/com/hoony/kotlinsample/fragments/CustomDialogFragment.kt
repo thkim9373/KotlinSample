@@ -11,15 +11,44 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.hoony.kotlinsample.databinding.FragmentCustomDialogBinding
+import com.hoony.kotlinsample.fragments.CustomDialogFragment.Type.Common
 
-class CustomDialogFragment(
-    val title: String,
-    private val contents: List<String> = listOf(),
-    private val positiveText: String? = null,
-    private val negativeTests: List<String> = listOf(),
-) : DialogFragment() {
+class CustomDialogFragment : DialogFragment() {
+
+    sealed class Type {
+        data class Common(
+            val title: String,
+            val contents: ArrayList<String> = arrayListOf(),
+            val positiveText: String? = null,
+            val negativeTests: List<String> = arrayListOf()
+        ) : Type()
+    }
+
+    companion object {
+        private const val KEY_TITLE = "title"
+        private const val KEY_CONTENTS = "contents"
+        private const val KEY_POSITIVE_BUTTON_TEXT = "positive button text"
+        private const val KEY_NEGATIVE_BUTTON_TEXTS = "negative button texts"
+
+        fun newInstance(
+            type: Type
+        ): CustomDialogFragment =
+            CustomDialogFragment().apply {
+                when (type) {
+                    is Common -> {
+                        arguments = bundleOf(
+                            KEY_TITLE to type.title,
+                            KEY_CONTENTS to type.contents,
+                            KEY_POSITIVE_BUTTON_TEXT to type.positiveText,
+                            KEY_NEGATIVE_BUTTON_TEXTS to type.negativeTests
+                        )
+                    }
+                }
+            }
+    }
 
     private var _binding: FragmentCustomDialogBinding? = null
     val binding: FragmentCustomDialogBinding
@@ -39,6 +68,19 @@ class CustomDialogFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val title: String
+        val contents: List<String>
+        val positiveText: String
+        val negativeTests: List<String>
+
+        arguments.let {
+            title = it?.getString(KEY_TITLE).orEmpty()
+            contents = it?.getStringArrayList(KEY_CONTENTS).orEmpty()
+            positiveText = it?.getString(KEY_POSITIVE_BUTTON_TEXT).orEmpty()
+            negativeTests = it?.getStringArrayList(KEY_NEGATIVE_BUTTON_TEXTS).orEmpty()
+        }
+
         binding.apply {
             topContainer.apply {
                 addView(
@@ -78,7 +120,7 @@ class CustomDialogFragment(
                 )
                 addView(
                     LinearLayout(requireContext()).apply {
-                        orientation = getButtonLayoutOriental()
+                        orientation = getButtonLayoutOriental(positiveText, negativeTests)
                         addView(
                             TextView(requireContext()).apply {
                                 layoutParams = ViewGroup.MarginLayoutParams(
@@ -98,12 +140,20 @@ class CustomDialogFragment(
                             addView(
                                 View(requireContext()).apply {
                                     layoutParams = ViewGroup.MarginLayoutParams(
-                                        if (getButtonLayoutOriental() == LinearLayout.VERTICAL) {
+                                        if (getButtonLayoutOriental(
+                                                positiveText,
+                                                negativeTests
+                                            ) == LinearLayout.VERTICAL
+                                        ) {
                                             ViewGroup.MarginLayoutParams.MATCH_PARENT
                                         } else {
                                             dpToPx(1)
                                         },
-                                        if (getButtonLayoutOriental() == LinearLayout.VERTICAL) {
+                                        if (getButtonLayoutOriental(
+                                                positiveText,
+                                                negativeTests
+                                            ) == LinearLayout.VERTICAL
+                                        ) {
                                             dpToPx(1)
                                         } else {
                                             ViewGroup.MarginLayoutParams.MATCH_PARENT
@@ -134,16 +184,17 @@ class CustomDialogFragment(
         }
     }
 
-    private fun getButtonLayoutOriental(): Int = if (positiveText?.length ?: 0 >= 7) {
-        LinearLayout.VERTICAL
-    } else {
-        negativeTests.forEach {
-            if (it.length >= 7) {
-                return LinearLayout.VERTICAL
+    private fun getButtonLayoutOriental(positiveText: String, negativeTests: List<String>): Int =
+        if (positiveText.length >= 7) {
+            LinearLayout.VERTICAL
+        } else {
+            negativeTests.forEach {
+                if (it.length >= 7) {
+                    return LinearLayout.VERTICAL
+                }
             }
+            LinearLayout.HORIZONTAL
         }
-        LinearLayout.HORIZONTAL
-    }
 
     private fun dpToPx(dp: Int): Int {
         return (dp * resources.displayMetrics.density).toInt()

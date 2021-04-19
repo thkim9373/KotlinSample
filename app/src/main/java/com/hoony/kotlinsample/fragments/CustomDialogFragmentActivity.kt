@@ -13,7 +13,14 @@ class CustomDialogFragmentActivity : AppCompatActivity() {
 
         binding.apply {
             this.showButton.setOnClickListener {
-                CustomDialogFragment("title", listOf("content"), "positive", listOf("negative")).showNow(
+                CustomDialogFragment.newInstance(
+                    CustomDialogFragment.Type.Common(
+                        "title",
+                        arrayListOf("content"),
+                        "positive",
+                        arrayListOf("negative")
+                    )
+                ).showNow(
                     supportFragmentManager,
                     "fragments!"
                 )

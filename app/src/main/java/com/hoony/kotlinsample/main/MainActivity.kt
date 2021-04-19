@@ -5,7 +5,6 @@ import com.hoony.kotlinsample.content_provider.list.ListActivity
 import com.hoony.kotlinsample.dagger.list.DaggerExampleListActivity
 import com.hoony.kotlinsample.data.TargetData
 import com.hoony.kotlinsample.fragments.CustomDialogFragmentActivity
-import com.hoony.kotlinsample.fragments.ExampleListActivity
 import com.hoony.kotlinsample.kakao.KakaoListActivity
 import com.hoony.kotlinsample.memo.intro.IntroActivity
 import com.hoony.kotlinsample.room.RoomActivity
@@ -21,7 +20,7 @@ class MainActivity : AbsListActivity() {
     private val targetList: List<TargetData> = arrayListOf(
         TargetData(
             CustomDialogFragmentActivity::class.java,
-            "Toast examples"
+            "Custom Dialog Example"
         ),
         TargetData(
             KakaoListActivity::class.java,

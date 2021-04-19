@@ -90,6 +90,9 @@
                     android:scheme="kakao{app_key}" />
             </intent-filter>
         </activity>
+        <activity android:name=".fragments.CustomDialogFragmentActivity" />
+        <activity android:name=".fragments.ExampleListActivity" />
+
         <receiver android:name=".memo.broadcast_receiver.AlarmTool" />
     </application>
 
