@@ -11,8 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.databinding.FragmentCustomDialogBinding
 import com.hoony.kotlinsample.fragments.CustomDialogFragment.Type.Common
 
@@ -59,10 +61,14 @@ class CustomDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // make white background transparent
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
 
         _binding = FragmentCustomDialogBinding.inflate(inflater)
+
+        dialog?.window?.apply {
+            // make white background transparent
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
         return binding.root
     }
 
@@ -105,10 +111,10 @@ class CustomDialogFragment : DialogFragment() {
                 }
             }
             container.apply {
-                layoutParams = ViewGroup.MarginLayoutParams(
-                    ViewGroup.MarginLayoutParams.WRAP_CONTENT,
-                    ViewGroup.MarginLayoutParams.WRAP_CONTENT
-                )
+//                layoutParams = ViewGroup.MarginLayoutParams(
+//                    ViewGroup.MarginLayoutParams.WRAP_CONTENT,
+//                    ViewGroup.MarginLayoutParams.WRAP_CONTENT
+//                )
                 addView(
                     View(requireContext()).apply {
                         layoutParams = ViewGroup.MarginLayoutParams(
@@ -121,19 +127,27 @@ class CustomDialogFragment : DialogFragment() {
                 addView(
                     LinearLayout(requireContext()).apply {
                         orientation = getButtonLayoutOriental(positiveText, negativeTests)
+                        weightSum = 2f
                         addView(
                             TextView(requireContext()).apply {
-                                layoutParams = ViewGroup.MarginLayoutParams(
+                                layoutParams = LinearLayout.LayoutParams(
                                     ViewGroup.MarginLayoutParams.MATCH_PARENT,
                                     dpToPx(52)
-                                )
+                                ).apply {
+                                    gravity = Gravity.TOP
+                                    weight = 1f
+                                }
                                 text = positiveText
                                 setTextColor(Color.WHITE)
                                 gravity = Gravity.CENTER
-                                setPadding(0, 0, 0, 20)
                                 setOnClickListener {
                                     dismiss()
                                 }
+                                background = ResourcesCompat.getDrawable(
+                                    resources,
+                                    R.drawable.background_custom_dialog_middle_button,
+                                    null
+                                )
                             }
                         )
                         negativeTests.forEach {
@@ -167,14 +181,20 @@ class CustomDialogFragment : DialogFragment() {
                                     text = it
                                     setTextColor(Color.WHITE)
                                     gravity = Gravity.CENTER
-                                    layoutParams = ViewGroup.MarginLayoutParams(
+                                    layoutParams = LinearLayout.LayoutParams(
                                         ViewGroup.MarginLayoutParams.MATCH_PARENT,
                                         dpToPx(52)
-                                    )
-                                    setPadding(0, 0, 0, dpToPx(6))
+                                    ).apply {
+                                        weight = 1f
+                                    }
                                     setOnClickListener {
                                         dismiss()
                                     }
+                                    background = ResourcesCompat.getDrawable(
+                                        resources,
+                                        R.drawable.background_custom_dialog_middle_button,
+                                        null
+                                    )
                                 }
                             )
                         }

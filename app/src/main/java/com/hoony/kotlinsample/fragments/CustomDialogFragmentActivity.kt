@@ -17,8 +17,8 @@ class CustomDialogFragmentActivity : AppCompatActivity() {
                     CustomDialogFragment.Type.Common(
                         "title",
                         arrayListOf("content"),
-                        "positive",
-                        arrayListOf("negative")
+                        "dd",
+                        arrayListOf("ss")
                     )
                 ).showNow(
                     supportFragmentManager,
