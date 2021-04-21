@@ -50,6 +50,8 @@ class CustomDialogFragment : DialogFragment() {
                     }
                 }
             }
+
+        private const val BUTTON_HEIGHT = 52
     }
 
     private var _binding: FragmentCustomDialogBinding? = null
@@ -90,22 +92,14 @@ class CustomDialogFragment : DialogFragment() {
         binding.apply {
             topContainer.apply {
                 addView(
-                    TextView(requireContext()).apply {
+                    getTitleTextView().apply {
                         text = title
-                        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-                        typeface = Typeface.DEFAULT_BOLD
-                        setTextColor(Color.WHITE)
-                        gravity = Gravity.CENTER
                     }
                 )
                 contents.forEach {
                     addView(
-                        TextView(requireContext()).apply {
+                        getContentTextView().apply {
                             text = it
-                            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                            setTextColor(Color.parseColor("#BDBDBD"))
-                            gravity = Gravity.CENTER
-                            setPadding(0, 20, 0, 0)
                         }
                     )
                 }
@@ -203,6 +197,22 @@ class CustomDialogFragment : DialogFragment() {
             }
         }
     }
+
+    private fun getTitleTextView(): TextView =
+        TextView(requireContext()).apply {
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+            typeface = Typeface.DEFAULT_BOLD
+            setTextColor(Color.WHITE)
+            gravity = Gravity.CENTER
+        }
+
+    private fun getContentTextView(): TextView =
+        TextView(requireContext()).apply {
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+            setTextColor(Color.parseColor("#BDBDBD"))
+            gravity = Gravity.CENTER
+            setPadding(0, 20, 0, 0)
+        }
 
     private fun getButtonLayoutOriental(positiveText: String, negativeTests: List<String>): Int =
         if (positiveText.length >= 7) {
