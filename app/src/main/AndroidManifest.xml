@@ -92,6 +92,7 @@
         </activity>
         <activity android:name=".fragments.CustomDialogFragmentActivity" />
         <activity android:name=".fragments.ExampleListActivity" />
+        <activity android:name=".custom_view.radio_group.CustomRadioGroupActivity" />
 
         <receiver android:name=".memo.broadcast_receiver.AlarmTool" />
     </application>
