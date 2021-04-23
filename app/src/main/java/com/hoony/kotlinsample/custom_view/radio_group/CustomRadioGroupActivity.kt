@@ -7,8 +7,8 @@ import com.hoony.kotlinsample.databinding.ActivityCustomRadioGroupBinding
 class CustomRadioGroupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         val binding = ActivityCustomRadioGroupBinding.inflate(layoutInflater)
+        super.onCreate(savedInstanceState)
         setContentView(binding.root)
     }
 }
