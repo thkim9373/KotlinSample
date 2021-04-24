@@ -13,12 +13,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <com.hoony.kotlinsample.custom_view.radio_group.CustomRadioButton
+            android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:text="@string/action_alarm" />
-
+            app:text="Button 1" />
 
     </com.hoony.kotlinsample.custom_view.radio_group.CustomRadioGroup>
 
