@@ -19,6 +19,18 @@
             android:layout_height="wrap_content"
             app:text="Button 1" />
 
+        <com.hoony.kotlinsample.custom_view.radio_group.CustomRadioButton
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:text="Button 2" />
+
+        <com.hoony.kotlinsample.custom_view.radio_group.CustomRadioButton
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:text="Button 3" />
+
     </com.hoony.kotlinsample.custom_view.radio_group.CustomRadioGroup>
 
     <!--    <LinearLayout-->
