@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <com.hoony.kotlinsample.custom_view.radio_group.CustomRadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"

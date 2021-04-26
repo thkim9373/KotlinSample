@@ -24,7 +24,7 @@ class CustomRadioGroup @JvmOverloads constructor(
         fun onChecked(@IdRes id: Int)
     }
 
-    private val listener: OnCheckedChangeListener? = null
+    var listener: OnCheckedChangeListener? = null
 
     /**
      *ㅈ
