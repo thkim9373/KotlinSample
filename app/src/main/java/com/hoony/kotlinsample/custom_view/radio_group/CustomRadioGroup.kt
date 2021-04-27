@@ -26,6 +26,8 @@ class CustomRadioGroup @JvmOverloads constructor(
 
     var listener: OnCheckedChangeListener? = null
 
+    var checkedButton: CustomRadioButton? = null
+
     /**
      *ㅈ
      * A pass-through listener acts upon the events and dispatches them
@@ -47,8 +49,12 @@ class CustomRadioGroup @JvmOverloads constructor(
                     child.setId(id)
                 }
                 child.listener =
-                    CustomRadioButton.OnCheckChangedListener { isChecked, radioButtonId ->
-                        if (isChecked) listener?.onChecked(radioButtonId)
+                    CustomRadioButton.OnCheckChangedListener { radioButton, isChecked ->
+                        if (isChecked) {
+                            checkedButton?.isChecked = false
+                            checkedButton = radioButton
+                            listener?.onChecked(radioButton.id)
+                        }
                     }
             }
             onHierarchyChangeListener?.onChildViewAdded(parent, child)

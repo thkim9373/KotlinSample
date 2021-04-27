@@ -7,9 +7,8 @@
     <com.hoony.kotlinsample.custom_view.radio_group.CustomRadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

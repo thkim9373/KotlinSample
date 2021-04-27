@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.Checkable
-import androidx.annotation.IdRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.hoony.kotlinsample.R
 import com.hoony.kotlinsample.databinding.ViewCustomRadioButtonBinding
@@ -18,7 +17,7 @@ class CustomRadioButton @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleRes), Checkable {
 
     fun interface OnCheckChangedListener {
-        fun onCheckChanged(isChecked: Boolean, @IdRes id: Int)
+        fun onCheckChanged(view: CustomRadioButton, isChecked: Boolean)
     }
 
     private val binding = ViewCustomRadioButtonBinding
@@ -43,10 +42,10 @@ class CustomRadioButton @JvmOverloads constructor(
             attributeSet.recycle()
         }
         this.setOnClickListener {
-            this.isChecked = true
+            if (!this.isChecked) this.isChecked = true
         }
         binding.button.setOnCheckedChangeListener { _, isChecked ->
-            this.isChecked = isChecked
+            if (this.isChecked != isChecked) this.isChecked = isChecked
         }
     }
 
@@ -55,7 +54,7 @@ class CustomRadioButton @JvmOverloads constructor(
     override fun setChecked(checked: Boolean) {
         this.check = checked
         updateRadioButton()
-        listener?.onCheckChanged(isChecked, id)
+        listener?.onCheckChanged(this, isChecked)
     }
 
     override fun isChecked(): Boolean = check
